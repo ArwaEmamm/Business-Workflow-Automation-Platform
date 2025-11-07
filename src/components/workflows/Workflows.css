@@ -1,0 +1,32 @@
+.workflow-info .ant-descriptions-item {
+  padding-bottom: 12px;
+}
+
+.step-number {
+  width: 24px;
+  height: 24px;
+  background-color: #1890ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.ant-timeline-item-label {
+  width: 120px !important;
+}
+
+/* Adjust modal width on smaller screens */
+@media (max-width: 768px) {
+  .ant-modal {
+    max-width: 95vw !important;
+    margin: 10px;
+  }
+  
+  .ant-timeline-item-label {
+    width: 80px !important;
+  }
+}

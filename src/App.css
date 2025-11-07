@@ -1,0 +1,319 @@
+:root {
+  /* Theme Colors */
+  --primary: #2563eb; /* requested primary blue */
+  --primary-dark: #1e40af;
+  --primary-transparent: rgba(37, 99, 235, 0.12);
+  
+  /* System Colors */
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  
+  /* Text Colors */
+  --text: #1f2937;
+  --text-light: #6b7280;
+  --text-muted: #9ca3af;
+  --text-placeholder: #d1d5db;
+  --text-input: #4b5563;
+  
+  /* Background Colors */
+  --white: #ffffff;
+  --bg-light: #f9fafb;
+  
+  /* Border Colors */
+  --border: #e5e7eb;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, input, button, textarea, select {
+  font-family: 'Poppins', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  background: #f8faff; /* requested light gray/blue */
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Layout */
+.app-wrapper {
+  min-height: 100vh;
+  display: flex;
+}
+
+/* Ensure the app stacks vertically so pages (auth/landing) can center properly */
+.app-wrapper {
+  flex-direction: column;
+}
+
+/* Make main take the full available width inside the wrapper */
+.app-wrapper > main {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
+.app-layout {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Auth Pages */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-light), #ffffff);
+  padding: 2rem;
+  width: 100%;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2.25rem 1.75rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(16, 24, 40, 0.08);
+  border: 1px solid rgba(2,6,23,0.04);
+}
+
+
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.workflow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--primary);
+  font-size: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.auth-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+/* Form Inputs */
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background-color: var(--white);
+  color: var(--text-input);
+  transition: all 0.2s ease;
+}
+
+.form-input::placeholder {
+  color: var(--text-placeholder);
+  opacity: 1;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-transparent);
+}
+
+.form-input:hover {
+  border-color: var(--text-light);
+}
+
+.auth-desc {
+  color: var(--text-light);
+  font-size: 0.875rem;
+}
+
+.form-row {
+  margin-bottom: 1rem;
+}
+
+.form-row label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-light);
+}
+
+.form-row input,
+.form-row select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--text-input);
+  transition: all 0.15s ease;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.form-row select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.75rem center;
+  background-repeat: no-repeat;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
+}
+
+.form-row input:focus,
+.form-row select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-transparent);
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 0.75rem;
+  margin-top: 0.375rem;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--text-light);
+}
+
+.auth-footer a {
+  color: var(--primary);
+  text-decoration: none;
+  margin-left: 0.25rem;
+  font-weight: 500;
+}
+
+.auth-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Buttons */
+.btn {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg,#6d28d9 0%, #2563eb 100%); /* purple -> blue gradient */
+  color: white;
+  border-radius: 10px;
+  padding: 0.75rem 1.25rem;
+  box-shadow: 0 6px 18px rgba(37,99,235,0.12);
+}
+
+.btn-primary:hover {
+  filter: brightness(0.95);
+}
+
+.btn-primary:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* Loading Animation */
+.loading-dots {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-dots div {
+  width: 0.375rem;
+  height: 0.375rem;
+  background: currentColor;
+  border-radius: 50%;
+  animation: loading 0.8s infinite;
+}
+
+.loading-dots div:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots div:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+.loading-dots div:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+@keyframes loading {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Error Notice */
+.notice {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+}
+
+.notice.error {
+  background: #fef2f2;
+  color: var(--danger);
+  border: 1px solid #fee2e2;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .auth-container {
+    padding: 1rem;
+  }
+  
+  .auth-card {
+    padding: 1.5rem;
+  }
+}
+
+/* Navigation */
+.main-nav {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}

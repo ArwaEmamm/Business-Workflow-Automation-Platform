@@ -1,0 +1,29 @@
+.sidebar {
+	width: 220px;
+	min-height: 100vh;
+	background: linear-gradient(180deg, var(--primary, #2563eb), #1e40af);
+	color: white;
+	position: relative;
+	flex: 0 0 220px;
+	box-shadow: 2px 0 8px rgba(16,24,40,0.06);
+}
+
+.sidebar-header { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.06) }
+.sidebar-brand { display:flex; align-items:center; gap:8px; font-size:1.05rem; margin:0 }
+.brand-icon { background: rgba(255,255,255,0.12); padding:6px 8px; border-radius:6px; font-weight:700; color:var(--white) }
+.brand-text { color: rgba(255,255,255,0.95); font-weight:700 }
+
+.sidebar-nav { padding: 12px 0 }
+.sidebar-item { display:flex; align-items:center; gap:12px; padding:10px 16px; color: rgba(255,255,255,0.9); text-decoration:none; border-radius:8px; margin:6px 10px }
+.sidebar-item:hover { background: rgba(30,64,175,0.2); }
+.sidebar-item.active { background: rgba(255,255,255,0.12); box-shadow: inset 3px 0 0 rgba(255,255,255,0.18) }
+.sidebar-icon { font-size:18px; display:flex; align-items:center }
+.sidebar-label { font-size:0.95rem }
+
+/* ensure main content shifts when sidebar present */
+.main-with-sidebar { margin-left: 220px }
+
+@media (max-width: 800px) {
+	.sidebar { display:none }
+	.main-with-sidebar { margin-left: 0 }
+}
