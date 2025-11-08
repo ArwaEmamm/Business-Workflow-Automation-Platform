@@ -1,0 +1,135 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './EmployeeDashboard.css';
+import { endpoints } from '../../api/apiEndpoints';
+import RequestsTable from '../../components/requests/RequestsTable';
+
+interface DashboardSummary {
+  total: number;
+  pending: number;
+  approved: number;
+  rejected: number;
+}
+
+interface Workflow {
+  id: string;
+  name: string;
+  description: string;
+}
+
+interface RecentRequestItem {
+  id: string;
+  workflowName: string;
+  status: string;
+  createdAt: string;
+  currentStep: number;
+}
+
+export default function EmployeeDashboard() {
+  const [summary, setSummary] = useState<DashboardSummary | null>(null);
+  const [workflows, setWorkflows] = useState<Workflow[]>([]);
+  const [recentRequests, setRecentRequests] = useState<RecentRequestItem[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      setLoading(true);
+      try {
+        // Fetch employee dashboard stats
+        const dashRes = await fetch(endpoints.dashboard, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }
+        });
+        if (!dashRes.ok) throw new Error('Failed to fetch dashboard');
+        const dashJson = await dashRes.json();
+        const s = dashJson?.summary ?? { total: 0, pending: 0, approved: 0, rejected: 0 };
+        setSummary(s);
+        const recent = Array.isArray(dashJson?.recentRequests) ? dashJson.recentRequests.map((r: any) => ({
+          id: r.id ?? r._id ?? '',
+          workflowName: r.workflowName ?? r.workflow?.name ?? r.data?.workflow?.name ?? '',
+          status: r.status ?? r.data?.status ?? '',
+          createdAt: r.createdAt ?? r.data?.createdAt ?? '',
+          currentStep: r.currentStep ?? r.data?.currentStep ?? 0
+        })) : [];
+        setRecentRequests(recent.slice(0, 5));
+
+        // Fetch available workflows
+        const wfRes = await fetch(endpoints.workflows.getAll, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }
+        });
+        if (wfRes.ok) {
+          const wfJson = await wfRes.json();
+          const wfList = Array.isArray(wfJson) ? wfJson : wfJson?.workflows ?? [];
+          setWorkflows(wfList);
+        }
+      } catch (err) {
+        console.error(err);
+        setError((err as Error).message || 'Failed to load dashboard');
+        setSummary({ total: 0, pending: 0, approved: 0, rejected: 0 });
+        setRecentRequests([]);
+        setWorkflows([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboard();
+  }, []);
+
+  return (
+    <div className="employee-page">
+      <main className="employee-main">
+
+        <div className="employee-container">
+          {/* Stats Cards */}
+          <section className="stats-row">
+            <div className="stat-card">
+              <div className="stat-card-title" style={{ color: '#1976D2' }}>Total Requests</div>
+              <div className="stat-card-value">{loading ? '...' : summary?.total ?? 0}</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-card-title" style={{ color: '#FFC107' }}>Pending</div>
+              <div className="stat-card-value">{loading ? '...' : summary?.pending ?? 0}</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-card-title" style={{ color: '#4CAF50' }}>Approved</div>
+              <div className="stat-card-value">{loading ? '...' : summary?.approved ?? 0}</div>
+            </div>
+            <div className="stat-card">
+              <div className="stat-card-title" style={{ color: '#DC3545' }}>Rejected</div>
+              <div className="stat-card-value">{loading ? '...' : summary?.rejected ?? 0}</div>
+            </div>
+          </section>
+
+          {/* Create Request Button removed from dashboard (use sidebar) */}
+
+          {/* Available Workflows */}
+          <section className="workflows-section">
+            <h3>Available Workflows</h3>
+            <div className="workflows-grid">
+              {workflows.map((wf, idx) => (
+                <div key={wf.id ?? `workflow-${idx}`} className="workflow-card">
+                  <h4>{wf.name}</h4>
+                  <p>{wf.description}</p>
+                  <Link to={`/employee/create-request?workflow=${wf.id}`} className="workflow-btn">
+                    Create Request
+                  </Link>
+                </div>
+              ))}
+              {workflows.length === 0 && !loading && (
+                <div className="no-workflows">No workflows available</div>
+              )}
+            </div>
+          </section>
+
+          {/* Recent Requests Table */}
+          <section className="recent-requests-card">
+            <h3>Recent Requests</h3>
+            {error && <div style={{ color: 'red' }}>{error}</div>}
+            <RequestsTable requests={recentRequests} loading={loading} />
+          </section>
+        </div>
+      </main>
+    </div>
+  );
+}

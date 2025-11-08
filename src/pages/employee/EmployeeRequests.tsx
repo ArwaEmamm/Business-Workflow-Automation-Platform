@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
-import { EyeOutlined } from '@ant-design/icons';
 import { FaPlus } from 'react-icons/fa';
 import { endpoints } from '../../api/apiEndpoints';
 import EmployeeRequestDetail from '../../components/requests/EmployeeRequestDetail';
+import RequestsTable from '../../components/requests/RequestsTable';
 import './EmployeeRequests.css';
 
 interface Request {
@@ -109,50 +109,7 @@ export default function EmployeeRequests() {
       </div>
 
       <section className="recent-requests-card">
-        <div className="recent-table-wrap">
-          <table className="recent-table">
-            <thead>
-              <tr>
-                <th>WORKFLOW</th>
-                <th>DATE</th>
-                <th>STATUS</th>
-                <th>CURRENT STEP</th>
-                <th>ACTIONS</th>
-              </tr>
-            </thead>
-            <tbody>
-              {requests.map((r) => (
-                <tr key={r.id}>
-                  <td>{r.workflowName || '-'}</td>
-                  <td>{new Date(r.createdAt).toLocaleString()}</td>
-                  <td><span className={`status-pill ${r.status}`}>{r.status}</span></td>
-                  <td>{r.currentStep || '-'}</td>
-                  <td>
-                    <Button
-                      type="link"
-                      icon={<EyeOutlined />}
-                      onClick={() => handleViewRequest(r.id)}
-                    >
-                      View Details
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-              {requests.length === 0 && !loading && (
-                <tr>
-                  <td colSpan={5} style={{ textAlign: 'center' }}>No requests found</td>
-                </tr>
-              )}
-              {loading && (
-                <tr>
-                  <td colSpan={5} style={{ textAlign: 'center' }}>
-                    <div className="loading-spinner">Loading...</div>
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+        <RequestsTable requests={requests} loading={loading} showAllRequests={true} />
       </section>
 
       <EmployeeRequestDetail
