@@ -112,14 +112,16 @@ export default function EmployeeRequests() {
         <RequestsTable requests={requests} loading={loading} showAllRequests={true} />
       </section>
 
-      <EmployeeRequestDetail
-        requestId={selectedRequestId || ''}
-        visible={isModalVisible}
-        onClose={() => {
-          setIsModalVisible(false);
-          setSelectedRequestId(null);
-        }}
-      />
+      {isModalVisible && (
+        <EmployeeRequestDetail
+          requestId={selectedRequestId || ''}
+          visible={isModalVisible}
+          onClose={() => {
+            setIsModalVisible(false);
+            setSelectedRequestId(null);
+          }}
+        />
+      )}
     </div>
   );
 }
