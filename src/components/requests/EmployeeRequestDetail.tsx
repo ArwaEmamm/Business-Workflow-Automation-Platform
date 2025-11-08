@@ -43,10 +43,10 @@ const EmployeeRequestDetail: React.FC<EmployeeRequestDetailProps> = ({ requestId
       {data && (
         <div>
           <Card style={{ marginBottom: 12 }}>
-            <Descriptions column={1} bordered>
+            <Descriptions column={2} bordered>
               <Descriptions.Item label="Title">{data.title}</Descriptions.Item>
-              <Descriptions.Item label="Description">{data.description || '-'}</Descriptions.Item>
               <Descriptions.Item label="Workflow">{data.workflowName || data.workflowId}</Descriptions.Item>
+              <Descriptions.Item label="Description" span={2}>{data.description || '-'}</Descriptions.Item>
               <Descriptions.Item label="Status"><Tag color={data.status === 'approved' ? 'green' : data.status === 'rejected' ? 'red' : 'orange'}>{data.status}</Tag></Descriptions.Item>
               <Descriptions.Item label="Created By">{typeof data.createdBy === 'string' ? data.createdBy : data.createdBy?.name}</Descriptions.Item>
               <Descriptions.Item label="Created At">{data.createdAt ? new Date(data.createdAt).toLocaleString() : '-'}</Descriptions.Item>
