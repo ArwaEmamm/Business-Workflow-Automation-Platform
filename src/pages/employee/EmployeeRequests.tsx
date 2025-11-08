@@ -48,7 +48,7 @@ export default function EmployeeRequests() {
         return;
       }
 
-      const response = await fetch(endpoints.users.getAllRequests, {
+      const response = await fetch(endpoints.requests.getAll, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
