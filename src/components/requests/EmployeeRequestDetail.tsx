@@ -49,7 +49,7 @@ const EmployeeRequestDetail: React.FC<EmployeeRequestDetailProps> = ({ requestId
               <Descriptions.Item label="Description" span={2}>{data.description || '-'}</Descriptions.Item>
               <Descriptions.Item label="Status"><Tag color={data.status === 'approved' ? 'green' : data.status === 'rejected' ? 'red' : 'orange'}>{data.status}</Tag></Descriptions.Item>
               <Descriptions.Item label="Created By">{typeof data.createdBy === 'string' ? data.createdBy : data.createdBy?.name}</Descriptions.Item>
-              <Descriptions.Item label="Created At">{data.createdAt ? new Date(data.createdAt).toLocaleString() : '-'}</Descriptions.Item>
+              <Descriptions.Item label="Created At" span={2}>{data.createdAt ? new Date(data.createdAt).toLocaleString() : '-'}</Descriptions.Item>
             </Descriptions>
           </Card>
 

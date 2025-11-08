@@ -65,7 +65,7 @@ export default function EmployeeRequests() {
 
       const data = await response.json();
       
-      // Normalize the response data
+      // Normalize the response data - show all requests, not just recent ones
       const normalizedRequests = Array.isArray(data) ? data : data.requests || [];
       const requests = normalizedRequests.map((r: any) => ({
         id: r.id || r._id,
@@ -74,7 +74,8 @@ export default function EmployeeRequests() {
         status: r.status,
         createdAt: r.createdAt,
         workflowId: r.workflowId,
-        workflowName: r.workflowName || r.workflow?.name
+        workflowName: r.workflowName || r.workflow?.name,
+        currentStep: r.currentStep
       }));
       
       setRequests(requests);
