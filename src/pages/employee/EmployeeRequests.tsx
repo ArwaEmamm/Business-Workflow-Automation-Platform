@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { FaPlus } from 'react-icons/fa';
 import { endpoints } from '../../api/apiEndpoints';
 import EmployeeRequestDetail from '../../components/requests/EmployeeRequestDetail';
@@ -34,17 +34,15 @@ export default function EmployeeRequests() {
   const navigate = useNavigate();
   const [requests, setRequests] = useState<Request[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRequestId, setSelectedRequestId] = useState<string | null>(null);
 
   const fetchRequests = async () => {
     setLoading(true);
-    setError(null);
     try {
       const token = localStorage.getItem('auth_token');
       if (!token) {
-        setError('يرجى تسجيل الدخول أولاً');
+        message.error('Please login first');
         return;
       }
 
@@ -55,18 +53,17 @@ export default function EmployeeRequests() {
       });
 
       if (!response.ok) {
-        if (response.status === 404) {
-          setRequests([]);
-          setError('لم يتم العثور على الطلبات');
-          return;
-        }
-        throw new Error('فشل في جلب الطلبات');
+        console.error('API Error:', response.status, response.statusText);
+        const errorText = await response.text();
+        console.error('API Error Response:', errorText);
+        throw new Error('Failed to fetch requests');
       }
 
       const data = await response.json();
-      
+      console.log('API Response:', data);
+
       // Normalize the response data - show all requests, not just recent ones
-      const normalizedRequests = Array.isArray(data) ? data : data.requests || [];
+      const normalizedRequests = Array.isArray(data) ? data : data.requests || data.data || [];
       const requests = normalizedRequests.map((r: any) => ({
         id: r.id || r._id,
         title: r.title,
@@ -75,12 +72,16 @@ export default function EmployeeRequests() {
         createdAt: r.createdAt,
         workflowId: r.workflowId,
         workflowName: r.workflowName || r.workflow?.name,
-        currentStep: r.currentStep
+        currentStep: r.currentStep,
+        attachments: r.attachments || []
       }));
-      
+
+      console.log('Normalized Requests:', requests);
       setRequests(requests);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'حدث خطأ أثناء جلب الطلبات');
+      console.error('Error fetching requests:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Error loading requests';
+      message.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -108,17 +109,24 @@ export default function EmployeeRequests() {
         </Button>
       </div>
 
-      <section className="recent-requests-card">
-        <RequestsTable requests={requests} loading={loading} showAllRequests={true} />
-      </section>
+      <div className="recent-requests-card">
+        <RequestsTable 
+          requests={requests} 
+          loading={loading} 
+          showAllRequests 
+          onViewRequest={handleViewRequest} 
+        />
+      </div>
 
-      {isModalVisible && (
-        <EmployeeRequestDetail
-          requestId={selectedRequestId || ''}
+      {selectedRequestId && (
+        <EmployeeRequestDetail 
+          requestId={selectedRequestId}
           visible={isModalVisible}
           onClose={() => {
             setIsModalVisible(false);
             setSelectedRequestId(null);
+            // Refresh the requests list after closing the modal
+            fetchRequests();
           }}
         />
       )}

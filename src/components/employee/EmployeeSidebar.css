@@ -1,0 +1,87 @@
+.employee-sidebar {
+  width: 250px;
+  background: #1976D2;
+  color: white;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.sidebar-header {
+  margin-bottom: 30px;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.brand-icon {
+  color: #4CAF50;
+  font-size: 1.5rem;
+}
+
+.brand-text {
+  color: white;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: translateX(4px);
+}
+
+.sidebar-item.active {
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.sidebar-icon {
+  font-size: 18px;
+  min-width: 18px;
+}
+
+.sidebar-label {
+  font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .employee-sidebar {
+    width: 200px;
+    padding: 16px;
+  }
+
+  .sidebar-brand {
+    font-size: 1.125rem;
+  }
+
+  .sidebar-item {
+    padding: 10px 12px;
+  }
+}

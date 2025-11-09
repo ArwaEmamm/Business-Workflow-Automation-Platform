@@ -129,6 +129,7 @@ export default function RegisterPage() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
+              autoComplete="email"
               required
             />
             {errors.email && <div className="form-error">{errors.email}</div>}

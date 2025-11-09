@@ -6,19 +6,24 @@ import LoginPage from './pages/Login'
 import LandingPage from './pages/LandingPage'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import ManagerDashboard from './pages/manager/ManagerDashboard'
+import EmployeeDashboard from './pages/employee/EmployeeDashboard'
+import CreateRequestPage from './pages/employee/CreateRequestPage'
+import EmployeeRequestDetail from './pages/employee/EmployeeRequestDetail'
+import EmployeeProfile from './pages/employee/Profile'
 import EmployeeRequests from './pages/employee/EmployeeRequests'
 import { getRouteByRole } from './utils/auth'
 import type { RootState } from './app/store'
 import AdminLayout from './layouts/AdminLayout'
+import EmployeeLayout from './layouts/EmployeeLayout'
 import AuthLayout from './layouts/AuthLayout'
 import WorkflowsList from './pages/admin/WorkflowsList'
 import UsersList from './pages/admin/UsersList'
 import RolesList from './pages/admin/RolesList'
 import { CreateWorkflowPage } from './pages/CreateWorkflowPage'
 import { EditWorkflowPage } from './pages/EditWorkflowPage'
-import WorkflowDetail from './pages/admin/WorkflowDetail'
+// WorkflowDetail is a modal component; do not import it directly as a route page
 import RequestsList from './pages/admin/RequestsList'
-import RequestDetail from './pages/admin/RequestDetail'
+// RequestDetail is used as a component in admin pages; not imported here
 
 // Protected Route Component
 const ProtectedRoute = ({ element: Element, allowedRoles }: { element: React.ComponentType, allowedRoles: string[] }) => {
@@ -131,7 +136,8 @@ function App() {
               path="/admin/workflows/:id"
               element={<ProtectedRoute element={() => (
                 <AdminLayout>
-                  <WorkflowDetail />
+                  {/* render workflows list for now; specific workflow detail is shown via modal in list */}
+                  <WorkflowsList />
                 </AdminLayout>
               )} allowedRoles={["admin"]} />}
             />
@@ -153,7 +159,43 @@ function App() {
             {/* Employee Routes */}
             <Route
               path="/employee"
-              element={<ProtectedRoute element={EmployeeRequests} allowedRoles={['employee']} />}
+              element={<ProtectedRoute element={() => (
+                <EmployeeLayout>
+                  <EmployeeDashboard />
+                </EmployeeLayout>
+              )} allowedRoles={['employee']} />}
+            />
+            <Route
+              path="/employee/create-request"
+              element={<ProtectedRoute element={() => (
+                <EmployeeLayout>
+                  <CreateRequestPage />
+                </EmployeeLayout>
+              )} allowedRoles={['employee']} />}
+            />
+            <Route
+              path="/employee/profile"
+              element={<ProtectedRoute element={() => (
+                <EmployeeLayout>
+                  <EmployeeProfile />
+                </EmployeeLayout>
+              )} allowedRoles={['employee']} />}
+            />
+            <Route
+              path="/employee/requests"
+              element={<ProtectedRoute element={() => (
+                <EmployeeLayout>
+                  <EmployeeRequests />
+                </EmployeeLayout>
+              )} allowedRoles={['employee']} />}
+            />
+            <Route
+              path="/employee/requests/:requestId"
+              element={<ProtectedRoute element={() => (
+                <EmployeeLayout>
+                  <EmployeeRequestDetail />
+                </EmployeeLayout>
+              )} allowedRoles={['employee']} />}
             />
           </Routes>
         </main>

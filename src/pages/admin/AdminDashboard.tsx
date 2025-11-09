@@ -32,6 +32,12 @@ export default function AdminDashboard() {
         // expected shape: { success, message, summary: {...}, recentRequests: [...] }
         const s = json?.summary ?? { total: 0, pending: 0, approved: 0, rejected: 0 };
         const recent = Array.isArray(json?.recentRequests) ? json.recentRequests.map((r: any) => ({ id: r.id ?? r._id ?? '', workflowName: r.workflowName ?? r.workflow?.name ?? r.data?.workflow?.name ?? '', status: r.status ?? r.data?.status ?? '', createdAt: r.createdAt ?? r.data?.createdAt ?? '' })) : [];
+        // sort by createdAt descending (newest first) then take 5
+        recent.sort((a: any, b: any) => {
+          const ta = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+          const tb = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+          return tb - ta;
+        });
         setSummary(s);
         setRecentRequests(recent.slice(0, 5));
       } catch (err) {

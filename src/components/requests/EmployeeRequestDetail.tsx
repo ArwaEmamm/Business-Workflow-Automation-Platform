@@ -21,13 +21,27 @@ const EmployeeRequestDetail: React.FC<EmployeeRequestDetailProps> = ({ requestId
       const res = await fetch(endpoints.requests.getById(requestId), {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }
       });
-      if (!res.ok) throw new Error('Failed to fetch request detail');
+      
+      if (!res.ok) {
+        console.error('API Error:', res.status, res.statusText);
+        const errorText = await res.text();
+        console.error('API Error Response:', errorText);
+        throw new Error('Failed to fetch request detail');
+      }
+
       const json = await res.json();
-      console.log('Request Detail API Response:', json); // Debug log
-      setData(json);
+      console.log('Request Detail API Response:', json);
+
+      if (!json || (!json.data && !json.title)) {
+        throw new Error('Invalid request data received');
+      }
+
+      // Normalize the response structure
+      const requestData = json.data || json;
+      setData(requestData);
     } catch (err) {
-      console.error('Error fetching request detail:', err); // Debug log
-      message.error((err as Error).message || 'Failed to load request');
+      console.error('Error fetching request detail:', err);
+      message.error('Failed to load request details');
       setData(null);
     } finally {
       setLoading(false);

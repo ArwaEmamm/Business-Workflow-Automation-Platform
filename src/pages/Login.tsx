@@ -83,6 +83,7 @@ export default function LoginPage() {
               value={formData.email}
               onChange={handleChange}
               placeholder="Enter your email"
+              autoComplete="username"
               required
             />
             {errors.email && <div className="form-error">{errors.email}</div>}
@@ -97,6 +98,7 @@ export default function LoginPage() {
               value={formData.password}
               onChange={handleChange}
               placeholder="Enter your password"
+              autoComplete="current-password"
               required
             />
             {errors.password && <div className="form-error">{errors.password}</div>}

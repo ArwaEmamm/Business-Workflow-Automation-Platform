@@ -21,7 +21,8 @@ export const endpoints = {
   },
   requests: {
     getAll: `${API_BASE_URL}/requests`,
-    create: `${API_BASE_URL}/requests`,
+    // create should include workflow id in the path: /api/requests/workflow/:workflowId
+    create: (workflowId?: string) => workflowId ? `${API_BASE_URL}/requests/workflow/${workflowId}` : `${API_BASE_URL}/requests`,
     getById: (id: string) => `${API_BASE_URL}/requests/${id}`,
     approve: (id: string) => `${API_BASE_URL}/requests/${id}/approve`,
   },

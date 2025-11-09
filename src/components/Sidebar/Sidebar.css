@@ -1,29 +1,87 @@
-.sidebar {
-	width: 220px;
-	min-height: 100vh;
-	background: linear-gradient(180deg, var(--primary, #2563eb), #1e40af);
+.employee-sidebar {
+	width: 250px;
+	background: #1976D2;
 	color: white;
-	position: relative;
-	flex: 0 0 220px;
-	box-shadow: 2px 0 8px rgba(16,24,40,0.06);
+	padding: 20px;
+	box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
-.sidebar-header { padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.06) }
-.sidebar-brand { display:flex; align-items:center; gap:8px; font-size:1.05rem; margin:0 }
-.brand-icon { background: rgba(255,255,255,0.12); padding:6px 8px; border-radius:6px; font-weight:700; color:var(--white) }
-.brand-text { color: rgba(255,255,255,0.95); font-weight:700 }
+.sidebar-header {
+	margin-bottom: 30px;
+}
 
-.sidebar-nav { padding: 12px 0 }
-.sidebar-item { display:flex; align-items:center; gap:12px; padding:10px 16px; color: rgba(255,255,255,0.9); text-decoration:none; border-radius:8px; margin:6px 10px }
-.sidebar-item:hover { background: rgba(30,64,175,0.2); }
-.sidebar-item.active { background: rgba(255,255,255,0.12); box-shadow: inset 3px 0 0 rgba(255,255,255,0.18) }
-.sidebar-icon { font-size:18px; display:flex; align-items:center }
-.sidebar-label { font-size:0.95rem }
+.sidebar-brand {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	color: white;
+	font-weight: 700;
+	font-size: 1.25rem;
+}
 
-/* ensure main content shifts when sidebar present */
-.main-with-sidebar { margin-left: 220px }
+.brand-icon {
+	color: #4CAF50;
+	font-size: 1.5rem;
+}
 
-@media (max-width: 800px) {
-	.sidebar { display:none }
-	.main-with-sidebar { margin-left: 0 }
+.brand-text {
+	color: white;
+}
+
+.sidebar-nav {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.sidebar-item {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 16px;
+	color: rgba(255, 255, 255, 0.9);
+	text-decoration: none;
+	border-radius: 8px;
+	transition: all 0.2s ease;
+	font-weight: 500;
+}
+
+.sidebar-item:hover {
+	background: rgba(255, 255, 255, 0.1);
+	color: white;
+	transform: translateX(4px);
+}
+
+.sidebar-item.active {
+	background: rgba(255, 255, 255, 0.15);
+	color: white;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.sidebar-icon {
+	font-size: 18px;
+	min-width: 18px;
+}
+
+.sidebar-label {
+	font-size: 0.875rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.employee-sidebar {
+		width: 200px;
+		padding: 16px;
+	}
+
+	.sidebar-brand {
+		font-size: 1.125rem;
+	}
+
+	.sidebar-item {
+		padding: 10px 12px;
+	}
 }

@@ -1,21 +1,39 @@
 import { Link } from 'react-router-dom';
+import { Button } from 'antd';
+import { EyeOutlined } from '@ant-design/icons';
 import './RequestsTable.css';
 
 interface RequestItem {
   id: string;
-  workflowName?: string;
+  _id?: string;
+  title: string;
+  description: string;
   status: string;
-  createdAt: string;
   currentStep?: number;
+  createdAt: string;
+  workflowId: string;
+  workflowName?: string;
+  attachments?: {
+    filename: string;
+    originalname: string;
+    mimetype: string;
+    path: string;
+    size: number;
+  }[];
+  workflow?: {
+    id: string;
+    name: string;
+  };
 }
 
 interface RequestsTableProps {
   requests: RequestItem[];
   loading?: boolean;
   showAllRequests?: boolean;
+  onViewRequest?: (requestId: string) => void;
 }
 
-const RequestsTable: React.FC<RequestsTableProps> = ({ requests, loading = false, showAllRequests = false }) => {
+const RequestsTable: React.FC<RequestsTableProps> = ({ requests, loading = false, showAllRequests = false, onViewRequest }) => {
   return (
     <div className="recent-table-wrap">
       <table className="recent-table">
@@ -36,9 +54,19 @@ const RequestsTable: React.FC<RequestsTableProps> = ({ requests, loading = false
               <td><span className={`status-pill ${r.status}`}>{r.status}</span></td>
               <td>{r.currentStep || '-'}</td>
               <td>
-                <Link to={`/employee/requests/${r.id}`} className="action-link">
-                  View Details
-                </Link>
+                {onViewRequest ? (
+                  <Button
+                    type="link"
+                    icon={<EyeOutlined />}
+                    onClick={() => onViewRequest(r.id)}
+                  >
+                    View Details
+                  </Button>
+                ) : (
+                  <Link to={`/employee/requests/${r.id}`} className="action-link">
+                    View Details
+                  </Link>
+                )}
               </td>
             </tr>
           ))}

@@ -15,7 +15,7 @@ const Sidebar: React.FC = () => {
 	];
 
 	return (
-		<aside className="sidebar" aria-label="Admin sidebar">
+		<aside className="employee-sidebar" aria-label="Admin sidebar">
 			<div className="sidebar-header">
 				<h3 className="sidebar-brand"><span className="brand-icon">WF</span> <span className="brand-text">Admin</span></h3>
 			</div>

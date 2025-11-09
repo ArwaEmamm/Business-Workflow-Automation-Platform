@@ -21,22 +21,23 @@ export interface RequestApproval {
 
 export interface Request {
   id: string;
+  _id?: string;
   title: string;
   description: string;
   workflowId: string;
-  workflowName: string;
+  workflowName?: string;
   status: 'pending' | 'approved' | 'rejected';
-  currentStep: number;
-  createdBy: {
+  currentStep?: number;
+  createdBy?: {
     id: string;
     name: string;
     role: string;
   };
   createdAt: string;
-  updatedAt: string;
-  attachments: RequestAttachment[];
-  approvals: RequestApproval[];
-  steps: {
+  updatedAt?: string;
+  attachments?: RequestAttachment[];
+  approvals?: RequestApproval[];
+  steps?: {
     id: string;
     title: string;
     order: number;

@@ -1,0 +1,101 @@
+.requests-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.85);
+}
+
+/* Recent Requests Table */
+.recent-requests-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  border: 1px solid #E0E0E0;
+}
+
+.recent-table-wrap {
+  overflow-x: auto;
+}
+
+.recent-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recent-table thead {
+  background: #F9F9F9;
+}
+
+.recent-table th {
+  text-align: left;
+  padding: 12px 16px;
+  color: #666666;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.recent-table td {
+  padding: 16px;
+  border-top: 1px solid #E0E0E0;
+  color: #333333;
+  font-size: 0.875rem;
+}
+
+.recent-table tbody tr:hover {
+  background: #F9F9F9;
+}
+
+.status-pill {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.status-pill.pending {
+  background: #FFF3DC;
+  color: #FFB020;
+}
+
+.status-pill.approved {
+  background: #E8F5E9;
+  color: #4CAF50;
+}
+
+.status-pill.rejected {
+  background: #FEEBEF;
+  color: #DC3545;
+}
+
+.loading-spinner {
+  padding: 24px;
+  text-align: center;
+  color: #666666;
+  background: #f5f5f5;
+}
+
+.requests-container .ant-tag {
+  text-transform: capitalize;
+  min-width: 80px;
+  text-align: center;
+}
+
+.requests-container .ant-pagination {
+  margin-top: 16px;
+  margin-bottom: 0;
+}
