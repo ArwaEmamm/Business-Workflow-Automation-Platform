@@ -8,9 +8,9 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <Sidebar />
       <div style={{ flex: 1 }}>
         <div style={{ backgroundColor: '#0d6efd', color: '#fff', padding: '10px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ fontWeight: 600 }}>Admin Portal</div>
+          <div style={{ fontWeight: 600 }}>HR Portal</div>
           <div>
-            <a href="/admin/notifications" style={{ color: '#fff' }} aria-label="Admin Notifications"><FaBell /></a>
+            <a href="/hr/notifications" style={{ color: '#fff' }} aria-label="HR Notifications"><FaBell /></a>
           </div>
         </div>
         <div style={{ padding: '20px' }}>

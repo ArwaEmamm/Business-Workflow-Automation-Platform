@@ -1,7 +1,7 @@
 interface WorkflowStep {
   title: string;
   order: number;
-  assignedRole: 'admin' | 'manager' | 'employee';
+  assignedRole: 'hr_manager' | 'manager' | 'employee';
 }
 
 export interface Workflow {

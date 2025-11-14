@@ -48,7 +48,7 @@ const WorkflowsList: React.FC = () => {
       message.error('Cannot edit workflow: missing id');
       return;
     }
-    navigate(`/admin/workflows/edit/${id}`);
+  navigate(`/hr/workflows/edit/${id}`);
   };
 
   const handleDelete = async (id: string) => {
@@ -144,7 +144,7 @@ const WorkflowsList: React.FC = () => {
         <Button
           type="primary"
           icon={<PlusOutlined />}
-          onClick={() => navigate('/admin/workflows/create')}
+          onClick={() => navigate('/hr/workflows/create')}
         >
           Create Workflow
         </Button>

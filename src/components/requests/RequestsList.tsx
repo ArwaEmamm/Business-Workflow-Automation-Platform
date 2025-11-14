@@ -31,7 +31,7 @@ export const RequestsList = () => {
   }, [filters, dispatch]);
 
   const handleView = (id: string) => {
-    navigate(`/admin/requests/${id}`);
+    navigate(`/hr/requests/${id}`);
   };
 
   const handleForceApprove = async (id: string) => {

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import './EmployeeDashboard.css';
 import { endpoints } from '../../api/apiEndpoints';
 import RequestsTable from '../../components/requests/RequestsTable';
@@ -10,12 +9,6 @@ interface DashboardSummary {
   pending: number;
   approved: number;
   rejected: number;
-}
-
-interface Workflow {
-  id: string;
-  name: string;
-  description: string;
 }
 
 interface RecentRequestItem {
@@ -31,7 +24,6 @@ interface RecentRequestItem {
 
 export default function EmployeeDashboard() {
   const [summary, setSummary] = useState<DashboardSummary | null>(null);
-  const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [recentRequests, setRecentRequests] = useState<RecentRequestItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -61,21 +53,12 @@ export default function EmployeeDashboard() {
         })) : [];
         setRecentRequests(recent.slice(0, 5));
 
-        // Fetch available workflows
-        const wfRes = await fetch(endpoints.workflows.getAll, {
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }
-        });
-        if (wfRes.ok) {
-          const wfJson = await wfRes.json();
-          const wfList = Array.isArray(wfJson) ? wfJson : wfJson?.workflows ?? [];
-          setWorkflows(wfList);
-        }
+        // Available workflows moved to /employee/workflows page
       } catch (err) {
         console.error(err);
         setError((err as Error).message || 'Failed to load dashboard');
         setSummary({ total: 0, pending: 0, approved: 0, rejected: 0 });
         setRecentRequests([]);
-        setWorkflows([]);
       } finally {
         setLoading(false);
       }
@@ -112,24 +95,7 @@ export default function EmployeeDashboard() {
 
           {/* Create Request Button removed from dashboard (use sidebar) */}
 
-          {/* Available Workflows */}
-          <section className="workflows-section">
-            <h3>Available Workflows</h3>
-            <div className="workflows-grid">
-              {workflows.map((wf, idx) => (
-                <div key={wf.id ?? `workflow-${idx}`} className="workflow-card">
-                  <h4>{wf.name}</h4>
-                  <p>{wf.description}</p>
-                  <Link to={`/employee/create-request?workflow=${wf.id}`} className="workflow-btn">
-                    Create Request
-                  </Link>
-                </div>
-              ))}
-              {workflows.length === 0 && !loading && (
-                <div className="no-workflows">No workflows available</div>
-              )}
-            </div>
-          </section>
+          {/* Available Workflows moved to sidebar -> /employee/workflows */}
 
           {/* Recent Requests Table */}
           <section className="recent-requests-card">

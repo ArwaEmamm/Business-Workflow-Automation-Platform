@@ -5,6 +5,7 @@ import {
     register as registerAPI,
     logout as logoutAPI,
     getStoredToken,
+    getStoredUser,
     type User,
     type Credentials,
     type RegisterCredentials,
@@ -22,8 +23,9 @@ interface AuthState {
 
 // Initial State
 const token = getStoredToken()
+const storedUser = getStoredUser()
 const initialState: AuthState = {
-    user: null,
+    user: storedUser,
     token,
     isAuthenticated: !!token,
     loading: false,
@@ -93,6 +95,8 @@ const authSlice = createSlice({
             })
             .addCase(loginUser.fulfilled, (state, { payload }) => {
                 state.loading = false
+                console.log('Auth slice loginUser.fulfilled - payload:', payload);
+                console.log('Auth slice setting user:', payload.user);
                 state.user = payload.user
                 state.token = payload.token
                 state.isAuthenticated = true
@@ -106,11 +110,11 @@ const authSlice = createSlice({
                 state.loading = true
                 state.error = null
             })
-            .addCase(registerUser.fulfilled, (state, { payload }) => {
+            .addCase(registerUser.fulfilled, (state) => {
                 state.loading = false
-                state.user = payload.user
-                state.token = payload.token
-                state.isAuthenticated = true
+                // Don't auto-login after registration
+                // User should login manually after registration
+                console.log('Registration successful - user should login manually');
             })
             .addCase(registerUser.rejected, (state, { payload }) => {
                 state.loading = false

@@ -34,19 +34,22 @@ export default function EmployeeRequests() {
   const navigate = useNavigate();
   const [requests, setRequests] = useState<Request[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRequestId, setSelectedRequestId] = useState<string | null>(null);
 
   const fetchRequests = async () => {
     setLoading(true);
+    setError(null);
     try {
       const token = localStorage.getItem('auth_token');
       if (!token) {
-        message.error('Please login first');
+        setError('Please login first');
         return;
       }
 
-      const response = await fetch(endpoints.requests.getAll, {
+      // Use dashboard endpoint to get user's own requests
+      const response = await fetch(endpoints.dashboard, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -60,20 +63,30 @@ export default function EmployeeRequests() {
       }
 
       const data = await response.json();
-      console.log('API Response:', data);
+      console.log('Dashboard API Response:', data);
 
-      // Normalize the response data - show all requests, not just recent ones
-      const normalizedRequests = Array.isArray(data) ? data : data.requests || data.data || [];
-      const requests = normalizedRequests.map((r: any) => ({
+      // Get all requests from dashboard response (not just recent ones)
+      // The dashboard endpoint returns user's own requests
+      let allRequests: any[] = [];
+
+      if (data.recentRequests && Array.isArray(data.recentRequests)) {
+        allRequests = data.recentRequests;
+      } else if (data.requests && Array.isArray(data.requests)) {
+        allRequests = data.requests;
+      } else if (Array.isArray(data)) {
+        allRequests = data;
+      }
+
+      const requests = allRequests.map((r: any) => ({
         id: r.id || r._id,
-        title: r.title,
-        description: r.description || '',
-        status: r.status,
-        createdAt: r.createdAt,
-        workflowId: r.workflowId,
-        workflowName: r.workflowName || r.workflow?.name,
-        currentStep: r.currentStep,
-        attachments: r.attachments || []
+        title: r.title || r.data?.title || 'Untitled',
+        description: r.description || r.data?.description || '',
+        status: r.status || r.data?.status || 'pending',
+        createdAt: r.createdAt || r.data?.createdAt,
+        workflowId: r.workflowId || r.workflow?.id || r.data?.workflow?.id,
+        workflowName: r.workflowName || r.workflow?.name || r.data?.workflow?.name,
+        currentStep: r.currentStep !== undefined ? r.currentStep : (r.data?.currentStep || 0),
+        attachments: r.attachments || r.data?.attachments || []
       }));
 
       console.log('Normalized Requests:', requests);
@@ -81,6 +94,7 @@ export default function EmployeeRequests() {
     } catch (err) {
       console.error('Error fetching requests:', err);
       const errorMessage = err instanceof Error ? err.message : 'Error loading requests';
+      setError(errorMessage);
       message.error(errorMessage);
     } finally {
       setLoading(false);

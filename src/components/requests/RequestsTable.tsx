@@ -31,9 +31,11 @@ interface RequestsTableProps {
   loading?: boolean;
   showAllRequests?: boolean;
   onViewRequest?: (requestId: string) => void;
+  onApprove?: (requestId: string) => void;
+  onReject?: (requestId: string) => void;
 }
 
-const RequestsTable: React.FC<RequestsTableProps> = ({ requests, loading = false, showAllRequests = false, onViewRequest }) => {
+const RequestsTable: React.FC<RequestsTableProps> = ({ requests, loading = false, showAllRequests = false, onViewRequest, onApprove, onReject }) => {
   return (
     <div className="recent-table-wrap">
       <table className="recent-table">
@@ -55,13 +57,25 @@ const RequestsTable: React.FC<RequestsTableProps> = ({ requests, loading = false
               <td>{r.currentStep || '-'}</td>
               <td>
                 {onViewRequest ? (
-                  <Button
-                    type="link"
-                    icon={<EyeOutlined />}
-                    onClick={() => onViewRequest(r.id)}
-                  >
-                    View Details
-                  </Button>
+                  <>
+                    <Button
+                      type="link"
+                      icon={<EyeOutlined />}
+                      onClick={() => onViewRequest(r.id)}
+                    >
+                      View
+                    </Button>
+                    {onApprove && (
+                      <Button type="link" onClick={() => onApprove(r.id)} style={{ color: '#4CAF50' }}>
+                        Approve
+                      </Button>
+                    )}
+                    {onReject && (
+                      <Button type="link" onClick={() => onReject(r.id)} style={{ color: '#DC2626' }}>
+                        Reject
+                      </Button>
+                    )}
+                  </>
                 ) : (
                   <Link to={`/employee/requests/${r.id}`} className="action-link">
                     View Details

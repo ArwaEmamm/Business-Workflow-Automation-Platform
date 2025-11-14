@@ -105,7 +105,7 @@ const UsersList: React.FC = () => {
       <div style={{ display: 'flex', gap: 12, marginBottom: 12 }}>
         <Search placeholder="Search by name/email/id" onSearch={val => setSearch(val)} style={{ width: 300 }} />
         <Select allowClear placeholder="Role" style={{ width: 180 }} onChange={v => setRoleFilter(v || null)}>
-          <Option value="admin">Admin</Option>
+          <Option value="hr_manager">HR Manager</Option>
           <Option value="manager">Manager</Option>
           <Option value="employee">Employee</Option>
         </Select>

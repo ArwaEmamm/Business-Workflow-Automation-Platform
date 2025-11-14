@@ -5,12 +5,15 @@ import RegisterPage from './pages/Register'
 import LoginPage from './pages/Login'
 import LandingPage from './pages/LandingPage'
 import AdminDashboard from './pages/admin/AdminDashboard'
-import ManagerDashboard from './pages/manager/ManagerDashboard'
 import EmployeeDashboard from './pages/employee/EmployeeDashboard'
+import ManagerRequests from './pages/manager/ManagerRequests'
+import ManagerLayout from './layouts/ManagerLayout'
 import CreateRequestPage from './pages/employee/CreateRequestPage'
 import EmployeeRequestDetail from './pages/employee/EmployeeRequestDetail'
 import EmployeeProfile from './pages/employee/Profile'
 import EmployeeRequests from './pages/employee/EmployeeRequests'
+import EmployeeWorkflows from './pages/employee/EmployeeWorkflows'
+import ManagerProfile from './pages/manager/Profile'
 import { getRouteByRole } from './utils/auth'
 import type { RootState } from './app/store'
 import AdminLayout from './layouts/AdminLayout'
@@ -82,78 +85,90 @@ function App() {
               </AuthLayout>
             } />
             
-            {/* Admin Routes */}
+            {/* HR (formerly Admin) Routes */}
             <Route
-              path="/admin"
+              path="/hr"
               element={<ProtectedRoute element={() => (
                 <AdminLayout>
                   <AdminDashboard />
                 </AdminLayout>
-              )} allowedRoles={['admin']} />}
+              )} allowedRoles={['hr_manager']} />}
             />
             {/* Admin Workflows management */}
             <Route
-              path="/admin/workflows"
+              path="/hr/workflows"
               element={<ProtectedRoute element={() => (
                 <AdminLayout>
                   <WorkflowsList />
                 </AdminLayout>
-              )} allowedRoles={["admin"]} />}
+              )} allowedRoles={["hr_manager"]} />}
             />
             <Route
-              path="/admin/users"
+              path="/hr/users"
               element={<ProtectedRoute element={() => (
                 <AdminLayout>
                   <UsersList />
                 </AdminLayout>
-              )} allowedRoles={["admin"]} />}
+              )} allowedRoles={["hr_manager"]} />}
             />
             <Route
-              path="/admin/roles"
+              path="/hr/roles"
               element={<ProtectedRoute element={() => (
                 <AdminLayout>
                   <RolesList />
                 </AdminLayout>
-              )} allowedRoles={["admin"]} />}
+              )} allowedRoles={["hr_manager"]} />}
             />
             <Route
-              path="/admin/requests"
+              path="/hr/requests"
               element={<ProtectedRoute element={() => (
                 <AdminLayout>
                   <RequestsList />
                 </AdminLayout>
-              )} allowedRoles={["admin"]} />}
+              )} allowedRoles={["hr_manager"]} />}
             />
             <Route
-              path="/admin/workflows/create"
+              path="/hr/workflows/create"
               element={<ProtectedRoute element={() => (
                 <AdminLayout>
                   <CreateWorkflowPage />
                 </AdminLayout>
-              )} allowedRoles={["admin"]} />}
+              )} allowedRoles={["hr_manager"]} />}
             />
             <Route
-              path="/admin/workflows/:id"
+              path="/hr/workflows/:id"
               element={<ProtectedRoute element={() => (
                 <AdminLayout>
                   {/* render workflows list for now; specific workflow detail is shown via modal in list */}
                   <WorkflowsList />
                 </AdminLayout>
-              )} allowedRoles={["admin"]} />}
+              )} allowedRoles={["hr_manager"]} />}
             />
             <Route
-              path="/admin/workflows/edit/:id"
+              path="/hr/workflows/edit/:id"
               element={<ProtectedRoute element={() => (
                 <AdminLayout>
                   <EditWorkflowPage />
                 </AdminLayout>
-              )} allowedRoles={["admin"]} />}
+              )} allowedRoles={["hr_manager"]} />}
             />
 
             {/* Manager Routes */}
             <Route
               path="/manager"
-              element={<ProtectedRoute element={ManagerDashboard} allowedRoles={['manager']} />}
+              element={<ProtectedRoute element={() => (
+                <ManagerLayout>
+                  <ManagerRequests />
+                </ManagerLayout>
+              )} allowedRoles={['manager']} />}
+            />
+            <Route
+              path="/manager/requests"
+              element={<ProtectedRoute element={() => (
+                <ManagerLayout>
+                  <ManagerRequests />
+                </ManagerLayout>
+              )} allowedRoles={['manager']} />}
             />
 
             {/* Employee Routes */}
@@ -182,6 +197,14 @@ function App() {
               )} allowedRoles={['employee']} />}
             />
             <Route
+              path="/employee/workflows"
+              element={<ProtectedRoute element={() => (
+                <EmployeeLayout>
+                  <EmployeeWorkflows />
+                </EmployeeLayout>
+              )} allowedRoles={['employee']} />}
+            />
+            <Route
               path="/employee/requests"
               element={<ProtectedRoute element={() => (
                 <EmployeeLayout>
@@ -196,6 +219,16 @@ function App() {
                   <EmployeeRequestDetail />
                 </EmployeeLayout>
               )} allowedRoles={['employee']} />}
+            />
+
+            {/* Manager profile */}
+            <Route
+              path="/manager/profile"
+              element={<ProtectedRoute element={() => (
+                <ManagerLayout>
+                  <ManagerProfile />
+                </ManagerLayout>
+              )} allowedRoles={['manager']} />}
             />
           </Routes>
         </main>

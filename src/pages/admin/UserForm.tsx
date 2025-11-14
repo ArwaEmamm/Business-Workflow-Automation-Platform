@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Modal, Form, Input, Select, Checkbox, message } from 'antd';
 import { endpoints } from '../../api/apiEndpoints';
-import type { WorkflowFormData } from '../../types/workflow.types';
 
 const { Option } = Select;
 
@@ -54,7 +53,7 @@ const UserForm: React.FC<UserFormProps> = ({ user, onClose }) => {
         )}
         <Form.Item name="role" label="Role" rules={[{ required: true, message: 'Role required' }]}>
           <Select>
-            <Option value="admin">Admin</Option>
+            <Option value="hr_manager">HR Manager</Option>
             <Option value="manager">Manager</Option>
             <Option value="employee">Employee</Option>
           </Select>

@@ -18,10 +18,28 @@ const EmployeeRequestDetail: React.FC<EmployeeRequestDetailProps> = ({ requestId
 
     setLoading(true);
     try {
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+
+      console.log('Fetching request detail for ID:', requestId);
+      console.log('Using token:', token.substring(0, 20) + '...');
+
       const res = await fetch(endpoints.requests.getById(requestId), {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }
+        headers: { 'Authorization': `Bearer ${token}` }
       });
-      
+
+      console.log('Response status:', res.status, res.statusText);
+
+      if (res.status === 403) {
+        console.error('403 Forbidden - Check user permissions and token validity');
+        const errorText = await res.text();
+        console.error('403 Error Response:', errorText);
+        message.error('Access denied. You may not have permission to view this request.');
+        throw new Error('Access denied');
+      }
+
       if (!res.ok) {
         console.error('API Error:', res.status, res.statusText);
         const errorText = await res.text();
@@ -41,7 +59,7 @@ const EmployeeRequestDetail: React.FC<EmployeeRequestDetailProps> = ({ requestId
       setData(requestData);
     } catch (err) {
       console.error('Error fetching request detail:', err);
-      message.error('Failed to load request details');
+      message.error(err instanceof Error ? err.message : 'Failed to load request details');
       setData(null);
     } finally {
       setLoading(false);

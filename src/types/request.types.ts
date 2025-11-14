@@ -41,7 +41,7 @@ export interface Request {
     id: string;
     title: string;
     order: number;
-    assignedRole: 'manager' | 'admin';
+  assignedRole: 'manager' | 'hr_manager';
     status: 'pending' | 'approved' | 'rejected';
   }[];
 }

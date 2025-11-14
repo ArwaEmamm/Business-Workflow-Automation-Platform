@@ -20,7 +20,9 @@ const RequestDetail: React.FC<RequestDetailProps> = ({ requestId, visible, onClo
       });
       if (!res.ok) throw new Error('Failed to fetch request detail');
       const json = await res.json();
-      setData(json);
+      // normalize wrapper { success, data } -> data
+      const payload = json?.data ?? json;
+      setData(payload);
     } catch (err) {
       message.error((err as Error).message || 'Failed to load request');
       setData(null);
@@ -71,7 +73,7 @@ const RequestDetail: React.FC<RequestDetailProps> = ({ requestId, visible, onClo
   };
 
   return (
-    <Modal title={`Request ${requestId}`} open={visible} onCancel={onClose} footer={null} width={800}>
+    <Modal title={data?.title ? data.title : 'Request Details'} open={visible} onCancel={onClose} footer={null} width={800}>
       {loading && <div>Loading...</div>}
       {!loading && !data && <div>No data available</div>}
 
@@ -79,27 +81,27 @@ const RequestDetail: React.FC<RequestDetailProps> = ({ requestId, visible, onClo
         <div>
           <Card style={{ marginBottom: 12 }}>
             <Descriptions column={1} bordered>
-              <Descriptions.Item label="Title">{data.title}</Descriptions.Item>
-              <Descriptions.Item label="Description">{data.description || '-'}</Descriptions.Item>
-              <Descriptions.Item label="Workflow">{data.workflowName || data.workflowId}</Descriptions.Item>
-              <Descriptions.Item label="Status"><Tag color={data.status === 'approved' ? 'green' : data.status === 'rejected' ? 'red' : 'orange'}>{data.status}</Tag></Descriptions.Item>
-              <Descriptions.Item label="Created By">{typeof data.createdBy === 'string' ? data.createdBy : data.createdBy?.name}</Descriptions.Item>
+              <Descriptions.Item label="Title">{data.title ?? '-'}</Descriptions.Item>
+              <Descriptions.Item label="Description">{data.description ?? '-'}</Descriptions.Item>
+              <Descriptions.Item label="Workflow">{data.workflow?.name ?? data.workflowName ?? data.workflowId ?? '-'}</Descriptions.Item>
+              <Descriptions.Item label="Status"><Tag color={data.status === 'approved' ? 'green' : data.status === 'rejected' ? 'red' : 'orange'}>{data.status ?? '-'}</Tag></Descriptions.Item>
+              <Descriptions.Item label="Created By">{(data.createdBy && (typeof data.createdBy === 'object')) ? data.createdBy.name : (data.createdBy ?? '-')}</Descriptions.Item>
               <Descriptions.Item label="Created At">{data.createdAt ? new Date(data.createdAt).toLocaleString() : '-'}</Descriptions.Item>
             </Descriptions>
           </Card>
 
           <Card title="Workflow Steps" style={{ marginBottom: 12 }}>
             <Timeline mode="left">
-              {(data.steps || []).map((s: any, idx: number) => (
-                <Timeline.Item key={idx} label={`Step ${s.order}`}>{s.title} — {s.assignedRole}</Timeline.Item>
+              {((data.workflow && data.workflow.steps) || data.steps || []).map((s: any, idx: number) => (
+                <Timeline.Item key={idx} label={`Step ${s.order ?? idx + 1}`}>{s.title ?? '-'} — {s.assignedRole ?? (s.assignedTo ?? '-')}</Timeline.Item>
               ))}
             </Timeline>
           </Card>
 
           <Card title="Approvals History">
             <Timeline>
-              {(data.history || []).map((h: any, i: number) => (
-                <Timeline.Item key={i}>{h.user?.name || h.user} — {h.decision} — {new Date(h.at).toLocaleString()} {h.comment ? `— ${h.comment}` : ''}</Timeline.Item>
+              {((data.approvalsHistory || data.history || [])).map((h: any, i: number) => (
+                <Timeline.Item key={i}>{(h.user && h.user.name) ? h.user.name : (h.user ?? '-')} — {h.decision ?? '-'} — {(h.at || h.atedAt || h.date) ? new Date(h.at || h.atedAt || h.date).toLocaleString() : '-'} {h.comment ? `— ${h.comment}` : ''}</Timeline.Item>
               ))}
             </Timeline>
           </Card>

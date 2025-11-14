@@ -150,7 +150,7 @@ const RequestsList: React.FC = () => {
         </Select>
         <RangePicker onChange={() => { /* date-range filtering could be implemented */ }} />
         <Space style={{ marginLeft: 'auto' }}>
-          <Button onClick={() => navigate('/admin/workflows')}>Workflows</Button>
+          <Button onClick={() => navigate('/hr/workflows')}>Workflows</Button>
           <Button type="primary" onClick={fetchRequests}>Refresh</Button>
         </Space>
       </div>

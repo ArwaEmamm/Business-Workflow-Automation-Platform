@@ -25,6 +25,7 @@ export const endpoints = {
     create: (workflowId?: string) => workflowId ? `${API_BASE_URL}/requests/workflow/${workflowId}` : `${API_BASE_URL}/requests`,
     getById: (id: string) => `${API_BASE_URL}/requests/${id}`,
     approve: (id: string) => `${API_BASE_URL}/requests/${id}/approve`,
+    pending: `${API_BASE_URL}/requests/pending`,
   },
   dashboard: `${API_BASE_URL}/dashboard`,
   notifications: {

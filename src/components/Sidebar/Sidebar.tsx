@@ -6,18 +6,18 @@ const Sidebar: React.FC = () => {
 	const location = useLocation();
 
 	const items = [
-		{ icon: <FaChartBar />, label: 'Dashboard', path: '/admin' },
-		{ icon: <FaStream />, label: 'Workflows', path: '/admin/workflows' },
-		{ icon: <FaClipboardList />, label: 'Requests', path: '/admin/requests' },
-		{ icon: <FaUsers />, label: 'Users', path: '/admin/users' },
-		{ icon: <FaUserShield />, label: 'Roles', path: '/admin/roles' },
-		{ icon: <FaCog />, label: 'Settings', path: '/admin/settings' }
+		{ icon: <FaChartBar />, label: 'Dashboard', path: '/hr' },
+		{ icon: <FaStream />, label: 'Workflows', path: '/hr/workflows' },
+		{ icon: <FaClipboardList />, label: 'Requests', path: '/hr/requests' },
+		{ icon: <FaUsers />, label: 'Users', path: '/hr/users' },
+		{ icon: <FaUserShield />, label: 'Roles', path: '/hr/roles' },
+		{ icon: <FaCog />, label: 'Settings', path: '/hr/settings' }
 	];
 
 	return (
 		<aside className="employee-sidebar" aria-label="Admin sidebar">
 			<div className="sidebar-header">
-				<h3 className="sidebar-brand"><span className="brand-icon">WF</span> <span className="brand-text">Admin</span></h3>
+				<h3 className="sidebar-brand"><span className="brand-icon">WF</span> <span className="brand-text">HR</span></h3>
 			</div>
 
 			<nav className="sidebar-nav">

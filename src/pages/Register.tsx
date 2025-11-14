@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { registerUser } from '../features/auth/authSlice'
 import type { RootState, AppDispatch } from '../app/store'
-import { getRouteByRole } from '../utils/auth'
 
 export default function RegisterPage() {
   const dispatch = useDispatch<AppDispatch>()
@@ -24,6 +23,8 @@ export default function RegisterPage() {
     password: '',
     confirmPassword: ''
   })
+
+  const [successMessage, setSuccessMessage] = useState('')
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -72,9 +73,9 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     if (!validateForm()) return
-    
+
     const result = await dispatch(registerUser({
       name: formData.name,
       email: formData.email,
@@ -83,8 +84,12 @@ export default function RegisterPage() {
     }))
 
     if (registerUser.fulfilled.match(result)) {
-      // بعد التسجيل الناجح، نوجه المستخدم إلى صفحة تسجيل الدخول
-      navigate('/login')
+      console.log('Registration successful! Redirecting to login...');
+      setSuccessMessage('Registration successful! Redirecting to login...');
+      // Redirect to login page after successful registration
+      setTimeout(() => {
+        navigate('/login');
+      }, 1500);
     }
   }
 
@@ -104,6 +109,7 @@ export default function RegisterPage() {
         </div>
 
         {error && <div className="notice error">{error}</div>}
+        {successMessage && <div className="notice success">{successMessage}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-row">
@@ -145,9 +151,9 @@ export default function RegisterPage() {
               className="form-input"
               required
             >
-              <option value="employee">employee</option>
-              <option value="admin">Admin</option>
-              <option value="editor">Manager</option>
+              <option value="employee">Employee</option>
+              <option value="manager">Manager</option>
+              {/* Admin registration removed — hr_manager must be created manually in the DB */}
             </select>
           </div>
 

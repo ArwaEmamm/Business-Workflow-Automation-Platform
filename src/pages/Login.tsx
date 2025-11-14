@@ -37,9 +37,14 @@ export default function LoginPage() {
     const result = await dispatch(loginUser(formData))
     if (loginUser.fulfilled.match(result)) {
       const { user } = result.payload;
-      // التوجيه حسب دور المستخدم
+      console.log('Login success! Full user object:', user);
+      console.log('User role:', user.role, 'Type:', typeof user.role);
+      // Redirect to appropriate dashboard based on role
       const redirectPath = getRouteByRole(user.role);
+      console.log('Redirect path:', redirectPath);
       navigate(redirectPath);
+    } else {
+      console.log('Login failed:', result.payload);
     }
   }
 

@@ -223,6 +223,12 @@ button:focus-visible {
   border: 1px solid var(--error-border);
 }
 
+.notice.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
 /* Footer */
 .auth-footer {
   margin-top: 1.5rem;

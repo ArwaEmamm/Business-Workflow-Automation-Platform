@@ -119,7 +119,7 @@ const WorkflowForm: React.FC<WorkflowFormProps> = ({ workflow, onClose, onSave }
 
   const getRoleBadgeColor = (role: string) => {
     switch (role) {
-      case 'admin': return '#ef4444';
+      case 'hr_manager': return '#ef4444';
       case 'manager': return '#f59e0b';
       case 'employee': return '#3b82f6';
       default: return '#6b7280';
@@ -219,7 +219,7 @@ const WorkflowForm: React.FC<WorkflowFormProps> = ({ workflow, onClose, onSave }
                       >
                         <option value="employee">Employee</option>
                         <option value="manager">Manager</option>
-                        <option value="admin">Admin</option>
+                        <option value="hr_manager">HR Manager</option>
                       </select>
                       <span
                         className="role-badge"

@@ -21,7 +21,7 @@ export const WorkflowForm = ({ initialValues = defaultWorkflow, onSubmit, isEdit
       setIsSubmitting(true);
       await onSubmit(values);
       message.success(`Workflow ${isEdit ? 'updated' : 'created'} successfully`);
-      navigate('/admin/workflows');
+  navigate('/hr/workflows');
     } catch (error) {
       message.error(`Failed to ${isEdit ? 'update' : 'create'} workflow`);
     } finally {
@@ -84,9 +84,9 @@ export const WorkflowForm = ({ initialValues = defaultWorkflow, onSubmit, isEdit
                     name={[name, 'assignedRole']}
                     rules={[{ required: true, message: 'Role is required' }]}
                   >
-                    <Select style={{ width: 120 }}>
+                    <Select style={{ width: 140 }}>
                       <Select.Option value="manager">Manager</Select.Option>
-                      <Select.Option value="admin">Admin</Select.Option>
+                      <Select.Option value="hr_manager">HR Manager</Select.Option>
                     </Select>
                   </Form.Item>
 
@@ -112,14 +112,14 @@ export const WorkflowForm = ({ initialValues = defaultWorkflow, onSubmit, isEdit
         )}
       </Form.List>
 
-      <Form.Item>
-        <Space>
-          <Button type="primary" htmlType="submit" loading={isSubmitting}>
-            {isEdit ? 'Update' : 'Create'} Workflow
-          </Button>
-          <Button onClick={() => navigate('/admin/workflows')}>Cancel</Button>
-        </Space>
-      </Form.Item>
+          <Form.Item>
+            <Space>
+              <Button type="primary" htmlType="submit" loading={isSubmitting}>
+                {isEdit ? 'Update' : 'Create'} Workflow
+              </Button>
+              <Button onClick={() => navigate('/hr/workflows')}>Cancel</Button>
+            </Space>
+          </Form.Item>
     </Form>
   );
 };

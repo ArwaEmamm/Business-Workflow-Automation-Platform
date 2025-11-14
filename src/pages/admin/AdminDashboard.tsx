@@ -58,7 +58,7 @@ export default function AdminDashboard() {
       <main className="admin-main">
         <header className="admin-top">
           <div className="admin-top-inner">
-            <h2>Admin Dashboard</h2>
+            <h2>HR Dashboard</h2>
           </div>
         </header>
 

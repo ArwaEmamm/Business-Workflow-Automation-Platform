@@ -1,4 +1,4 @@
-import { FaUser, FaPlus, FaClipboardList, FaChartBar } from 'react-icons/fa';
+import { FaUser, FaPlus, FaClipboardList, FaChartBar, FaStream } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
 import './EmployeeSidebar.css';
 
@@ -8,6 +8,7 @@ const EmployeeSidebar: React.FC = () => {
 	const items = [
 		{ icon: <FaUser />, label: 'Profile', path: '/employee/profile' },
 		{ icon: <FaChartBar />, label: 'Dashboard', path: '/employee' },
+		{ icon: <FaStream />, label: 'Workflows', path: '/employee/workflows' },
 		{ icon: <FaPlus />, label: 'New Request', path: '/employee/create-request' },
 		{ icon: <FaClipboardList />, label: 'My Requests', path: '/employee/requests' },
 		

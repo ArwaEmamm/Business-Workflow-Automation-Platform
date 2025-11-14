@@ -2,7 +2,7 @@ export interface User {
   id?: string;
   name: string;
   email: string;
-  role: 'admin' | 'manager' | 'employee';
+  role: 'hr_manager' | 'manager' | 'employee';
   department?: string;
   isActive: boolean;
   lastLogin?: string;
@@ -13,7 +13,7 @@ export interface User {
 export interface UserFormData {
   name: string;
   email: string;
-  role: 'admin' | 'manager' | 'employee';
+  role: 'hr_manager' | 'manager' | 'employee';
   department?: string;
   password?: string;
   isActive: boolean;

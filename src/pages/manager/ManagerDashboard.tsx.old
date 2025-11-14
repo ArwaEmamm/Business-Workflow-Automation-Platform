@@ -1,0 +1,185 @@
+import { useState, useEffect } from 'react';
+import {
+  Box,
+  Paper,
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  CircularProgress,
+  useTheme,
+  ThemeProvider,
+  createTheme,
+  useMediaQuery,
+  Snackbar,
+  Alert
+} from '@mui/material';
+import { endpoints } from '../../api/apiEndpoints';
+import { PendingRequest, RequestStats } from '../../types/manager.types';
+import RequestsTable from '../../components/manager/RequestsTable';
+import RequestDetailDialog from '../../components/manager/RequestDetailDialog';
+import StatsCard from '../../components/manager/StatsCard';
+import { ThemeDirection } from '../../types/theme.types';
+
+export default function ManagerDashboard() {
+  const [requests, setRequests] = useState<PendingRequest[]>([]);
+  const [stats, setStats] = useState<RequestStats>({
+    pending: 0,
+    approved: 0,
+    rejected: 0,
+    averageResponseTime: '0'
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedRequest, setSelectedRequest] = useState<PendingRequest | null>(null);
+  const [snackbar, setSnackbar] = useState<{ open: boolean; message: string; severity: 'success' | 'error' }>({
+    open: false,
+    message: '',
+    severity: 'success'
+  });
+
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isRTL = theme.direction === 'rtl';
+
+  const fetchDashboardData = async () => {
+    setLoading(true);
+    try {
+      const [requestsRes, statsRes] = await Promise.all([
+        fetch(endpoints.requests.pending, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }
+        }),
+        fetch(endpoints.dashboard, {
+          headers: { 'Authorization': `Bearer ${localStorage.getItem('auth_token')}` }
+        })
+      ]);
+
+      if (!requestsRes.ok || !statsRes.ok) throw new Error('Failed to fetch dashboard data');
+
+      const requestsData = await requestsRes.json();
+      const statsData = await statsRes.json();
+
+      setRequests(requestsData);
+      setStats(statsData);
+    } catch (err) {
+      console.error('Error fetching dashboard data:', err);
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      setSnackbar({
+        open: true,
+        message: 'Failed to load dashboard data',
+        severity: 'error'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
+  return (
+    <Box sx={{ p: 3, direction: isRTL ? 'rtl' : 'ltr' }}>
+      {/* Stats Cards */}
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        <Grid item xs={12} sm={6} md={3}>
+          <StatsCard
+            title="Pending Requests"
+            value={stats.pending}
+            color="#FFA000"
+            icon="pending"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <StatsCard
+            title="Approved Requests"
+            value={stats.approved}
+            color="#4CAF50"
+            icon="check_circle"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <StatsCard
+            title="Rejected Requests"
+            value={stats.rejected}
+            color="#F44336"
+            icon="cancel"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6} md={3}>
+          <StatsCard
+            title="Avg. Response Time"
+            value={stats.averageResponseTime}
+            color="#2196F3"
+            icon="timer"
+          />
+        </Grid>
+      </Grid>
+
+      {/* Requests Table */}
+      <Paper sx={{ p: 2, mb: 4 }}>
+        <Typography variant="h6" gutterBottom>
+          Pending Requests
+        </Typography>
+        <RequestsTable
+          requests={requests}
+          onViewRequest={setSelectedRequest}
+        />
+      </Paper>
+
+      {/* Request Detail Dialog */}
+      {selectedRequest && (
+        <RequestDetailDialog
+          request={selectedRequest}
+          open={!!selectedRequest}
+          onClose={() => setSelectedRequest(null)}
+          onAction={handleRequestAction}
+        />
+      )}
+
+      {/* Snackbar for notifications */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: isRTL ? 'left' : 'right' }}
+      >
+        <Alert
+          onClose={() => setSnackbar({ ...snackbar, open: false })}
+          severity={snackbar.severity}
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+    </Box>
+  );
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'An error occurred');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  if (!data) return <div>No data available</div>;
+
+  return (
+    <div className="dashboard-container">
+      <h1>Manager Dashboard</h1>
+      {/* Render dashboard data here */}
+    </div>
+  );
+}
