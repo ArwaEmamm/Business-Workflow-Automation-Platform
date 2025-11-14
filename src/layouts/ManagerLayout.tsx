@@ -4,6 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
 import { useNavigate } from 'react-router-dom';
+import NotificationIcon from '../components/notifications/NotificationIcon';
 
 interface Props { children: React.ReactNode }
 
@@ -39,12 +40,16 @@ export default function ManagerLayout({ children }: Props) {
           <div className="employee-top-inner">
             <div className="employee-brand"><span className="brand-icon">WF</span> <strong>Manager</strong></div>
             <div className="employee-user-section" ref={dropdownRef} style={{ position: 'relative' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer' }} onClick={() => setOpen(!open)}>
-                <div className="welcome-text">Welcome, {user?.name ?? 'Manager'}</div>
-                <Avatar sx={{ width: 32, height: 32 }}>{user?.name ? user.name.charAt(0).toUpperCase() : 'M'}</Avatar>
-              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer' }} onClick={() => setOpen(!open)}>
+                    <div className="welcome-text">Welcome, {user?.name ?? 'Manager'}</div>
+                    <Avatar sx={{ width: 32, height: 32 }}>{user?.name ? user.name.charAt(0).toUpperCase() : 'M'}</Avatar>
+                  </div>
 
-              <div style={{ position: 'absolute', right: 0, top: 44, zIndex: 50 }}>
+                  <NotificationIcon />
+                </div>
+
+                <div style={{ position: 'absolute', right: 0, top: 44, zIndex: 50 }}>
                 <div style={{
                   transformOrigin: 'top right',
                   transition: 'all 180ms ease-in-out',

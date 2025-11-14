@@ -14,6 +14,7 @@ import EmployeeProfile from './pages/employee/Profile'
 import EmployeeRequests from './pages/employee/EmployeeRequests'
 import EmployeeWorkflows from './pages/employee/EmployeeWorkflows'
 import ManagerProfile from './pages/manager/Profile'
+import NotificationsPage from './pages/NotificationsPage'
 import { getRouteByRole } from './utils/auth'
 import type { RootState } from './app/store'
 import AdminLayout from './layouts/AdminLayout'
@@ -27,6 +28,7 @@ import { EditWorkflowPage } from './pages/EditWorkflowPage'
 // WorkflowDetail is a modal component; do not import it directly as a route page
 import RequestsList from './pages/admin/RequestsList'
 // RequestDetail is used as a component in admin pages; not imported here
+// NotificationIcon moved into role-specific layouts (manager/admin/employee) to avoid duplicates
 
 // Protected Route Component
 const ProtectedRoute = ({ element: Element, allowedRoles }: { element: React.ComponentType, allowedRoles: string[] }) => {
@@ -68,6 +70,9 @@ function App() {
                 </svg>
                 Workflow
               </Link>
+            </div>
+            <div className="nav-actions">
+              {/* Role-specific headers render their own notification / profile controls */}
             </div>
           </nav>
         )}
@@ -229,6 +234,41 @@ function App() {
                   <ManagerProfile />
                 </ManagerLayout>
               )} allowedRoles={['manager']} />}
+            />
+
+            {/* Notifications Page - accessible to all authenticated users */}
+            <Route
+              path="/notifications"
+              element={<ProtectedRoute element={() => (
+                <div style={{ minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
+                  <NotificationsPage />
+                </div>
+              )} allowedRoles={['employee', 'manager', 'hr_manager']} />}
+            />
+            {/* Role-prefixed routes for backward compatibility (e.g. /hr/notifications) */}
+            <Route
+              path="/hr/notifications"
+              element={<ProtectedRoute element={() => (
+                <AdminLayout>
+                  <NotificationsPage />
+                </AdminLayout>
+              )} allowedRoles={['hr_manager']} />}
+            />
+            <Route
+              path="/manager/notifications"
+              element={<ProtectedRoute element={() => (
+                <ManagerLayout>
+                  <NotificationsPage />
+                </ManagerLayout>
+              )} allowedRoles={['manager']} />}
+            />
+            <Route
+              path="/employee/notifications"
+              element={<ProtectedRoute element={() => (
+                <EmployeeLayout>
+                  <NotificationsPage />
+                </EmployeeLayout>
+              )} allowedRoles={['employee']} />}
             />
           </Routes>
         </main>

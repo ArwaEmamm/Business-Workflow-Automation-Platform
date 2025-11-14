@@ -102,7 +102,6 @@ const RequestsList: React.FC = () => {
   };
 
   const columns: ColumnsType<RequestItem> = [
-    { title: 'Request ID', dataIndex: 'id', key: 'id', width: 180 },
     { title: 'Title', dataIndex: 'title', key: 'title', render: (t) => <b>{t}</b> },
     { title: 'Workflow', dataIndex: 'workflowName', key: 'workflowName' },
     { title: 'Status', dataIndex: 'status', key: 'status', render: (s) => {

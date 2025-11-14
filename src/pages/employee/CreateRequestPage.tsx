@@ -119,8 +119,13 @@ export default function CreateRequestPage() {
       }
 
       const data = await response.json();
-      // After successful creation, navigate to My Requests page instead of specific request
-      navigate('/employee/requests');
+      // After successful creation, navigate to the created request if backend returned its id, otherwise go to My Requests
+      const createdId = data.id || data._id || data.requestId || data.request?.id;
+      if (createdId) {
+        navigate(`/employee/requests/${createdId}`);
+      } else {
+        navigate('/employee/requests');
+      }
     } catch (err) {
       setError((err as Error).message || 'Failed to create request');
     } finally {

@@ -4,6 +4,20 @@
   font-weight: 400;
 
   color-scheme: light dark;
+  /* Theme variables */
+  --primary: #1890ff;
+  --primary-dark: #1366d6;
+  --primary-transparent: rgba(24, 144, 255, 0.12);
+  --text-on-primary: #ffffff;
+  --bg-primary: #ffffff;
+  --bg-alt: #f5f7fb;
+  --bg-input: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border-color: #e6eefc;
+  --error: #e11d48;
+  --error-light: rgba(225, 29, 72, 0.06);
+  --error-border: rgba(225, 29, 72, 0.12);
   
   /* Global font settings */
   font-synthesis: none;

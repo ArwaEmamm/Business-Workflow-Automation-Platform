@@ -1,6 +1,6 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar/Sidebar';
-import { FaBell } from 'react-icons/fa';
+import NotificationIcon from '../components/notifications/NotificationIcon';
 
 const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
@@ -9,8 +9,8 @@ const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <div style={{ flex: 1 }}>
         <div style={{ backgroundColor: '#0d6efd', color: '#fff', padding: '10px 16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ fontWeight: 600 }}>HR Portal</div>
-          <div>
-            <a href="/hr/notifications" style={{ color: '#fff' }} aria-label="HR Notifications"><FaBell /></a>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <NotificationIcon />
           </div>
         </div>
         <div style={{ padding: '20px' }}>

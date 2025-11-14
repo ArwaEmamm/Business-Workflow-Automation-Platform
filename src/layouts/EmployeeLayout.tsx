@@ -1,6 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import EmployeeSidebar from '../components/employee/EmployeeSidebar';
-import { FaUserCircle, FaBell } from 'react-icons/fa';
+import { FaUserCircle } from 'react-icons/fa';
+import NotificationIcon from '../components/notifications/NotificationIcon';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../app/store';
 import { useState, useRef, useEffect } from 'react';
@@ -37,9 +38,7 @@ const EmployeeLayout: React.FC<{ children: React.ReactNode }> = ({ children }) =
         <div style={{ backgroundColor: '#007FFF', color: '#fff', padding: '8px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ fontWeight: 600 }}>Employee Portal</div>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', position: 'relative' }} ref={dropdownRef}>
-            <Link to="/employee/notifications" style={{ color: '#fff' }} aria-label="Notifications">
-              <FaBell size={18} />
-            </Link>
+            <NotificationIcon />
 
             <div style={{ color: '#fff', display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }} onClick={() => setOpen(!open)} aria-label="Profile menu">
               <FaUserCircle size={20} />
