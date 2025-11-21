@@ -1,103 +1,110 @@
-# React + TypeScript + Vite
+# 🚀 Workflow Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A complete workflow automation platform that simulates a real corporate environment — including employee requests, approval chains, background processing, notifications, and dynamic role-based dashboards.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+### 👤 Role-Based System
+- **Employee**: Submit various requests (Leave, Salary Raise, WFH, Laptop Request…)
+- **Manager**: Review & approve/decline employee requests
+- **Admin / HR**: Final approval + full system monitoring
+- **Workflows change dynamically** depending on request type
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 🔔 Notifications System
+- Real-time notifications for each user
+- Mark-as-read, store in DB
+- Background job processing (non-blocking)
 
-## Expanding the ESLint configuration
+### 📊 Dashboards
+Each role sees a different organized dashboard showing only related data
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### ⚙️ Workflow Processing
+Multi-step request routing + verification before each status change
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    **مشروع واجهة Workflow (React + TypeScript + Vite)**
+---
 
-    ملخص سريع (بالعربي):
+## 🧠 Tech Stack
 
-    - هذا المشروع هو واجهة أمامية مبنية بـ `React` + `TypeScript` ويدار عبر `Vite`.
-    - تنسيق الملفات: المكونات في `src/`، الصور والميديا في `src/assets`.
-    - تم استخدام مكتبات UI مثل Ant Design وبعض أيقونات `lucide-react`.
+### 🖥️ Backend — Node.js / Express / MongoDB
+- JWT Authentication + RBAC
+- RESTful API structure
+- MongoDB + Mongoose
+- BullMQ + Redis for Background Jobs
+- Email queue (async)
+- Validation middleware & secure routes
+- Swagger API documentation
 
-    Quick summary (English):
+### 💻 Frontend — React.js
+- Protected Routes + Role-based UI
+- Reusable components
+- Dynamic pages for requests & workflows
+- Notifications UI integrated with backend
+- Clean & Modern UX
 
-    - Frontend app built with `React` + `TypeScript` and powered by `Vite`.
-    - Components live under `src/`. Static images are kept in `src/assets`.
-    - Uses Ant Design and lucide-react for UI and icons.
+---
 
-    ---
+## 🌐 Demo
 
-    **معلومات النظام (System info)**
+🎥 Watch Demo Video:  
+🔗 https://drive.google.com/file/d/1yvRAS3odhQb6M2v7RWwZKTQTbK6rOv8f/view?usp=sharing
 
-    - Node/npm: Use a recent Node.js (18+ recommended) and npm.
-    - Run the dev server (PowerShell):
+---
 
-    ```powershell
-    npm install
-    npm run dev
-    ```
+## 📸 Screenshots
 
-    - Build for production:
+>ع
 
-    ```powershell
-    npm run build
-    ```
+| Admin Dashboard | Requests List | Workflow View |
+|----------------|---------------|---------------|
 
-    - Dev server proxy: The Vite dev server proxies `^/api/.*` to the backend at `http://localhost:4000` — see `vite.config.ts`.
+![landingpage](https://github.com/user-attachments/assets/c4a3f469-b7a8-476d-a982-cb8e180cb81d)
+![users](https://github.com/user-attachments/assets/2226bfea-2ef6-4fa9-b00d-aacac5c6be21)
+![requests](https://github.com/user-attachments/assets/ed63e16a-94cb-43a3-ae02-812e503cd5b6)
+![details](https://github.com/user-attachments/assets/25f46ac3-cb15-4508-81e6-dc2333a325f0)
+![employerDashboard](https://github.com/user-attachments/assets/e0dd921f-ee85-44ce-bd7e-fe92c4f98be8)
 
-    - Authentication: the app stores the JWT token in `localStorage` under the key `auth_token`. Many API calls add `Authorization: Bearer <token>`.
-
-    ---
-
-    **موقع الصور / لقطات الشاشة**
-
-    الصور المرفوعة موجودة في `src/assets`. تم تضمين لقطات للشاشات المهمة أدناه — افتحي الملف محليًا لتأكيد المسارات والأسماء.
-
-    - Employer Dashboard
-      ![Employer Dashboard](src/assets/employerDashboard.JPG)
-
-    - HR Manager Dashboard
-      ![HR Manager Dashboard](src/assets/hrmangerdashboard.JPG)
-
-    - Landing Page
-      ![Landing Page](src/assets/landingpage.JPG)
-
-    - Login
-      ![Login](src/assets/login.JPG)
-
-    - Manager Dashboard
-      ![Manager Dashboard](src/assets/mangerdashboard.JPG)
-
-    - Notifications (example)
-      ![Notifications](src/assets/notofilcation.JPG)
-
-    ---
-
-    **المسارات والصفحات المهمة (Important routes)**
-
-    - `/` — Landing page
-    - `/login` — Login
-    - `/hr/workflows` — Workflows list (HR)
-    - `/hr/workflows/create` — Create workflow page (the form used to create a workflow)![landingpage](https://github.com/user-attachments/assets/10a6564f-54f6-462f-a7e9-ebf829595a59)
-
-    - `/requests` and role-specific pages live in `src/pages/` and `src/layouts/`
-
-demo https://drive.google.com/file/d/1yvRAS3odhQb6M2v7RWwZKTQTbK6rOv8f/view?usp=sharing
-![empcreateworkflow](https://github.com/user-attachments/assets/cf635ef5-fc87-4181-840c-c9d70c765f06)
-![employerDashboard](https://github.com/user-attachments/assets/bda34cd3-903f-4ca0-ad55-289f8c3cfcd3)
-![notofilcation](https://github.com/user-attachments/assets/7b601231-9f1f-4e80-98ca-be4fba8934a6)
-![requests](https://github.com/user-attachments/assets/ab32e606-b1b2-4ff8-b6fe-96eeae18dcf7)
-![users](https://github.com/user-attachments/assets/1c271251-0213-45df-b616-18cce4ebd4aa)
-![mangerdashboard](https://github.com/user-attachments/assets/364d9e85-44fb-4477-87aa-25bf77f9c016)
-![login](https://github.com/user-attachments/assets/a9b46098-453e-47aa-8e78-ea089f9bf251)
-![Uploading landingpage.JPG…]()
+![mangerdashboard](https://github.com/user-attachments/assets/16d238ef-9f62-4510-86ac-61e87269e08b)
 
 
+---
+
+## 📂 Project Structure
+
+```bash
+backend/
+ ├─ src/
+ │  ├─ controllers/
+ │  ├─ models/
+ │  ├─ routes/
+ │  ├─ middlewares/
+ │  ├─ jobs/ (BullMQ)
+ │  └─ utils/
+frontend/
+ ├─ src/
+ │  ├─ components/
+ │  ├─ pages/
+ 📌 Future Improvements
+
+Workflow Designer UI (drag & drop)
+
+Email Templates Dashboard
+
+Mobile Version for Employees
+
+Push WebSocket Notifications
+
+🏁 Lessons Learned
+
+✔ Enterprise-grade Node.js architecture
+✔ Dynamic multi-step approval logic
+✔ Scalable queue processing with Redis
+✔ Secure role-based UI separation in React
+✔ Clean reusable component-based frontend
+
+📞 Contact
+
+If you'd like access to the source code or a live demo — feel free to reach out! ✨
+ │  ├─ services/
+ │  └─ context/
