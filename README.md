@@ -34,6 +34,7 @@ Multi-step request routing + verification before each status change
 - BullMQ + Redis for Background Jobs
 - Email queue (async)
 - Validation middleware & secure routes
+
 - Swagger API documentation
 
 ### 💻 Frontend — React.js
@@ -64,8 +65,9 @@ Multi-step request routing + verification before each status change
 ![requests](https://github.com/user-attachments/assets/ed63e16a-94cb-43a3-ae02-812e503cd5b6)
 ![details](https://github.com/user-attachments/assets/25f46ac3-cb15-4508-81e6-dc2333a325f0)
 ![employerDashboard](https://github.com/user-attachments/assets/e0dd921f-ee85-44ce-bd7e-fe92c4f98be8)
-
+![notofilcation](https://github.com/user-attachments/assets/20ab3608-dedb-4976-8bb9-28fec9120c9e)
 ![mangerdashboard](https://github.com/user-attachments/assets/16d238ef-9f62-4510-86ac-61e87269e08b)
+![hrmangerdashboard](https://github.com/user-attachments/assets/585185f0-4437-4f59-809f-73d3fcf55671)
 
 
 ---
