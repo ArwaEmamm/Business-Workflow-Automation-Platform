@@ -9,7 +9,7 @@ const ProfilePage: React.FC = () => {
   return (
     <div style={{ maxWidth: 720, margin: '0 auto' }}>
       <div style={{ display: 'flex', gap: 16, alignItems: 'center', marginBottom: 24 }}>
-        <div style={{ width: 72, height: 72, borderRadius: 36, background: '#1976D2', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28 }}>
+        <div style={{ width: 72, height: 72, borderRadius: 36, background: '#059669', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28 }}>
           {user?.name ? user.name.charAt(0).toUpperCase() : (user?.email ? user.email.charAt(0).toUpperCase() : 'U')}
         </div>
         <div>

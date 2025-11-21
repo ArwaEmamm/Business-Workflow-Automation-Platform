@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './AdminDashboard.css';
 import { endpoints } from '../../api/apiEndpoints';
+import { BarChart3, AlertCircle, CheckCircle2, XCircle } from 'lucide-react';
 
 interface DashboardSummary {
   total: number;
@@ -58,32 +59,47 @@ export default function AdminDashboard() {
       <main className="admin-main">
         <header className="admin-top">
           <div className="admin-top-inner">
-            <h2>HR Dashboard</h2>
+            <div>
+              <h2 className="admin-title">HR Dashboard</h2>
+              <p className="admin-subtitle">Overview of requests and quick stats</p>
+            </div>
           </div>
         </header>
 
         <div className="admin-container">
           <section className="stats-row">
-            <div className="stat-card">
-              <div className="stat-card-title" style={{ color: '#2563eb' }}>Total Requests</div>
+            <div className="stat-card total">
+              <div className="stat-card-header">
+                <BarChart3 size={24} className="stat-icon" />
+                <div className="stat-card-title">Total Requests</div>
+              </div>
               <div className="stat-card-value">{loading ? '...' : summary?.total ?? 0}</div>
             </div>
-            <div className="stat-card">
-              <div className="stat-card-title" style={{ color: '#f59e0b' }}>Pending</div>
+            <div className="stat-card pending">
+              <div className="stat-card-header">
+                <AlertCircle size={24} className="stat-icon" />
+                <div className="stat-card-title">Pending</div>
+              </div>
               <div className="stat-card-value">{loading ? '...' : summary?.pending ?? 0}</div>
             </div>
-            <div className="stat-card">
-              <div className="stat-card-title" style={{ color: '#22c55e' }}>Approved</div>
+            <div className="stat-card approved">
+              <div className="stat-card-header">
+                <CheckCircle2 size={24} className="stat-icon" />
+                <div className="stat-card-title">Approved</div>
+              </div>
               <div className="stat-card-value">{loading ? '...' : summary?.approved ?? 0}</div>
             </div>
-            <div className="stat-card">
-              <div className="stat-card-title" style={{ color: '#ef4444' }}>Rejected</div>
+            <div className="stat-card rejected">
+              <div className="stat-card-header">
+                <XCircle size={24} className="stat-icon" />
+                <div className="stat-card-title">Rejected</div>
+              </div>
               <div className="stat-card-value">{loading ? '...' : summary?.rejected ?? 0}</div>
             </div>
           </section>
 
           <section className="recent-requests-card">
-            <h3>Recent Requests</h3>
+            <h3 className="recent-requests-title">Recent Requests</h3>
             {error && <div style={{ color: 'red' }}>{error}</div>}
             <div className="recent-table-wrap">
               <table className="recent-table">

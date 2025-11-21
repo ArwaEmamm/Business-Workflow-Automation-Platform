@@ -118,14 +118,11 @@ export default function CreateRequestPage() {
         throw new Error(errorData?.message || 'فشل في إنشاء الطلب');
       }
 
-      const data = await response.json();
-      // After successful creation, navigate to the created request if backend returned its id, otherwise go to My Requests
-      const createdId = data.id || data._id || data.requestId || data.request?.id;
-      if (createdId) {
-        navigate(`/employee/requests/${createdId}`);
-      } else {
-        navigate('/employee/requests');
-      }
+      // Wait for response to be fully processed
+      await response.json();
+      
+      // Redirect to My Requests after successful creation
+      navigate('/employee/requests');
     } catch (err) {
       setError((err as Error).message || 'Failed to create request');
     } finally {
@@ -157,7 +154,7 @@ export default function CreateRequestPage() {
             >
               <option value="">Select a workflow</option>
               {workflows.map((wf) => (
-                <option key={wf.id || wf._id} value={wf.id}>
+                <option key={wf.id} value={wf.id}>
                   {wf.name}
                 </option>
               ))}

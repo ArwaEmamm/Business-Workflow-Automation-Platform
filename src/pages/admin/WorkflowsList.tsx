@@ -10,7 +10,6 @@ import './Workflows.css';
 const WorkflowsList: React.FC = () => {
   const [workflows, setWorkflows] = useState<Workflow[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedWorkflow, setSelectedWorkflow] = useState<Workflow | null>(null);
   const navigate = useNavigate();
@@ -18,14 +17,12 @@ const WorkflowsList: React.FC = () => {
   const fetchWorkflows = async () => {
     try {
       setLoading(true);
-      setError(null);
       const data = await workflowsApi.getAll();
       setWorkflows(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error('Workflow fetch error:', err);
       const errorMessage = err instanceof Error ? err.message : 'Failed to load workflows';
       message.error(errorMessage);
-      setError(errorMessage);
       setWorkflows([]);
     } finally {
       setLoading(false);
@@ -139,12 +136,18 @@ const WorkflowsList: React.FC = () => {
 
   return (
     <div className="workflows-page">
-      <div style={{ marginBottom: 16, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1 style={{ margin: 0 }}>Workflows</h1>
+      <div className="workflows-header">
+        <h1>Workflows Management</h1>
         <Button
           type="primary"
           icon={<PlusOutlined />}
           onClick={() => navigate('/hr/workflows/create')}
+          className="create-workflow-btn"
+          style={{
+            background: 'linear-gradient(90deg, #059669 0%, #047857 100%)',
+            borderColor: '#059669',
+            fontWeight: 600
+          }}
         >
           Create Workflow
         </Button>
@@ -160,6 +163,7 @@ const WorkflowsList: React.FC = () => {
           showSizeChanger: true,
           showTotal: (total) => `Total ${total} workflows`,
         }}
+        className="workflows-table"
       />
 
       {selectedWorkflow && (

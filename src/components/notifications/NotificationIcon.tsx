@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { BellOutlined } from '@ant-design/icons';
-import { Badge, Button, Dropdown, List, Avatar, Typography, message } from 'antd';
+import { Badge, Button, Dropdown, message } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import type { RootState, AppDispatch } from '../../app/store';
 import { fetchNotifications, markNotificationAsRead } from '../../features/notifications/notificationsSlice';
 import type { Notification } from '../../types/notification.types';
 import NotificationDropdown from './NotificationDropdown';
-
-const { Text } = Typography;
+import './NotificationIcon.css';
 
 interface NotificationIconProps {
-  className?: string;
 }
 
-const NotificationIcon: React.FC<NotificationIconProps> = ({ className }) => {
+const NotificationIcon: React.FC<NotificationIconProps> = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { notifications, unreadCount, loading } = useSelector((state: RootState) => state.notifications);
@@ -86,12 +84,12 @@ const NotificationIcon: React.FC<NotificationIconProps> = ({ className }) => {
       <Button
         type="text"
         icon={
-          <Badge count={unreadCount} size="small">
-            <BellOutlined style={{ fontSize: '18px' }} />
+          <Badge count={unreadCount} size="small" color="#059669">
+            <BellOutlined style={{ fontSize: '18px', color: 'white' }} />
           </Badge>
         }
-        className={className}
-        style={{ height: 'auto', padding: '4px 8px' }}
+        className="notification-btn"
+        style={{ height: 'auto', padding: '6px 12px' }}
       />
     </Dropdown>
   );

@@ -67,7 +67,7 @@
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: #1976D2;
+  border-color: #059669;
   box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
 }
 
@@ -143,7 +143,7 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: #1976D2;
+  background: #059669;
   color: white;
   display: flex;
   align-items: center;
@@ -199,12 +199,12 @@
 }
 
 .btn-primary {
-  background: #1976D2;
+  background: #059669;
   color: white;
 }
 
 .btn-primary:hover:not(:disabled) {
-  background: #1565C0;
+  background: #047857;
 }
 
 .btn-primary:disabled {

@@ -3,6 +3,7 @@ import './EmployeeDashboard.css';
 import { endpoints } from '../../api/apiEndpoints';
 import RequestsTable from '../../components/requests/RequestsTable';
 import EmployeeRequestDetail from '../../components/requests/EmployeeRequestDetail';
+import { BarChart3, AlertCircle, CheckCircle2, XCircle } from 'lucide-react';
 
 interface DashboardSummary {
   total: number;
@@ -69,49 +70,66 @@ export default function EmployeeDashboard() {
   }, []);
 
   return (
-    <div className="employee-page">
-      <main className="employee-main">
-
-        <div className="employee-container">
-          {/* Stats Cards */}
-          <section className="stats-row">
-            <div className="stat-card">
-              <div className="stat-card-title" style={{ color: '#1976D2' }}>Total Requests</div>
-              <div className="stat-card-value">{loading ? '...' : summary?.total ?? 0}</div>
+    <div style={{ minHeight: '100vh', backgroundColor: '#f9fbff' }}>
+      <div className="employee-container">
+        <div className="page-header">
+          <div className="page-title-section">
+            <BarChart3 size={32} color="#059669" className="page-title-icon" style={{ color: '#059669' }} />
+            <div>
+              <h1 className="page-title">Dashboard</h1>
+              <p className="page-subtitle">View your request summary and recent activity</p>
             </div>
-            <div className="stat-card">
-              <div className="stat-card-title" style={{ color: '#FFC107' }}>Pending</div>
-              <div className="stat-card-value">{loading ? '...' : summary?.pending ?? 0}</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-card-title" style={{ color: '#4CAF50' }}>Approved</div>
-              <div className="stat-card-value">{loading ? '...' : summary?.approved ?? 0}</div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-card-title" style={{ color: '#DC3545' }}>Rejected</div>
-              <div className="stat-card-value">{loading ? '...' : summary?.rejected ?? 0}</div>
-            </div>
-          </section>
-
-          {/* Create Request Button removed from dashboard (use sidebar) */}
-
-          {/* Available Workflows moved to sidebar -> /employee/workflows */}
-
-          {/* Recent Requests Table */}
-          <section className="recent-requests-card">
-            <h3>Recent Requests</h3>
-            {error && <div style={{ color: 'red' }}>{error}</div>}
-            <RequestsTable 
-              requests={recentRequests} 
-              loading={loading} 
-              onViewRequest={(requestId) => {
-                setSelectedRequestId(requestId);
-                setIsModalVisible(true);
-              }}
-            />
-          </section>
+          </div>
         </div>
-      </main>
+
+        {/* Stats Cards */}
+        <section className="stats-row">
+          <div className="stat-card total">
+            <div className="stat-card-header">
+              <BarChart3 size={24} className="stat-icon" style={{ color: '#059669' }} />
+              <div className="stat-card-title">Total Requests</div>
+            </div>
+            <div className="stat-card-value">{loading ? '...' : summary?.total ?? 0}</div>
+          </div>
+          <div className="stat-card pending">
+            <div className="stat-card-header">
+              <AlertCircle size={24} className="stat-icon" style={{ color: '#f59e0b' }} />
+              <div className="stat-card-title">Pending</div>
+            </div>
+            <div className="stat-card-value">{loading ? '...' : summary?.pending ?? 0}</div>
+          </div>
+          <div className="stat-card approved">
+            <div className="stat-card-header">
+              <CheckCircle2 size={24} className="stat-icon" style={{ color: '#10b981' }} />
+              <div className="stat-card-title">Approved</div>
+            </div>
+            <div className="stat-card-value">{loading ? '...' : summary?.approved ?? 0}</div>
+          </div>
+          <div className="stat-card rejected">
+            <div className="stat-card-header">
+              <XCircle size={24} className="stat-icon" style={{ color: '#dc2626' }} />
+              <div className="stat-card-title">Rejected</div>
+            </div>
+            <div className="stat-card-value">{loading ? '...' : summary?.rejected ?? 0}</div>
+          </div>
+        </section>
+
+        {/* Recent Requests Table */}
+        <section className="requests-table-section">
+          <div style={{ marginBottom: '16px' }}>
+            <h3 style={{ color: '#059669', fontSize: '1.1rem', fontWeight: 700, margin: 0 }}>Recent Requests</h3>
+          </div>
+          {error && <div style={{ color: 'red', padding: '12px', background: '#fee2e2', borderRadius: '6px', marginBottom: '16px' }}>{error}</div>}
+          <RequestsTable 
+            requests={recentRequests} 
+            loading={loading} 
+            onViewRequest={(requestId) => {
+              setSelectedRequestId(requestId);
+              setIsModalVisible(true);
+            }}
+          />
+        </section>
+      </div>
 
       {selectedRequestId && (
         <EmployeeRequestDetail 

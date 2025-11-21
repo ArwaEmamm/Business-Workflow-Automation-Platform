@@ -5,9 +5,9 @@
 
   color-scheme: light dark;
   /* Theme variables */
-  --primary: #1890ff;
-  --primary-dark: #1366d6;
-  --primary-transparent: rgba(24, 144, 255, 0.12);
+  --primary: #10b981;
+  --primary-dark: #059669;
+  --primary-transparent: rgba(16, 185, 129, 0.12);
   --text-on-primary: #ffffff;
   --bg-primary: #ffffff;
   --bg-alt: #f5f7fb;

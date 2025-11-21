@@ -21,17 +21,17 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
   const getNotificationIcon = (type: Notification['type']) => {
     switch (type) {
       case 'created':
-        return <FileTextOutlined style={{ color: '#1890ff' }} />;
+        return <FileTextOutlined style={{ color: '#059669' }} />;
       case 'approved':
-        return <CheckCircleOutlined style={{ color: '#52c41a' }} />;
+        return <CheckCircleOutlined style={{ color: '#10b981' }} />;
       case 'rejected':
-        return <CloseCircleOutlined style={{ color: '#ff4d4f' }} />;
+        return <CloseCircleOutlined style={{ color: '#dc2626' }} />;
       case 'commented':
-        return <UserOutlined style={{ color: '#faad14' }} />;
+        return <UserOutlined style={{ color: '#f59e0b' }} />;
       case 'assigned':
-        return <UserOutlined style={{ color: '#722ed1' }} />;
+        return <UserOutlined style={{ color: '#059669' }} />;
       default:
-        return <FileTextOutlined style={{ color: '#1890ff' }} />;
+        return <FileTextOutlined style={{ color: '#059669' }} />;
     }
   };
 
@@ -55,9 +55,9 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
   }
 
   return (
-    <div style={{ width: '350px', maxHeight: '400px', overflow: 'hidden' }}>
-      <div style={{ padding: '12px 16px', borderBottom: '1px solid #f0f0f0' }}>
-        <Text strong>Notifications</Text>
+    <div style={{ width: '350px', maxHeight: '400px', overflow: 'hidden', borderRadius: '8px' }}>
+      <div style={{ padding: '12px 16px', borderBottom: '2px solid #ecfdf5', background: 'linear-gradient(90deg, #f0fdf4 0%, #ecfdf5 100%)' }}>
+        <Text strong style={{ color: '#059669' }}>Notifications</Text>
       </div>
 
       {notifications.length === 0 ? (
@@ -74,8 +74,9 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
               style={{
                 padding: '12px 16px',
                 cursor: 'pointer',
-                backgroundColor: notification.isRead ? 'transparent' : '#f6ffed',
-                borderBottom: '1px solid #f0f0f0',
+                backgroundColor: notification.isRead ? 'transparent' : '#f0fdf4',
+                borderBottom: '1px solid #ecfdf5',
+                transition: 'all 0.2s ease',
               }}
               onClick={() => onNotificationClick(notification)}
             >
@@ -85,7 +86,8 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
                     size="small"
                     icon={getNotificationIcon(notification.type)}
                     style={{
-                      backgroundColor: notification.isRead ? '#f5f5f5' : '#fff',
+                      backgroundColor: notification.isRead ? '#f5f5f5' : '#ecfdf5',
+                      color: '#059669',
                     }}
                   />
                 }
@@ -96,7 +98,7 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
                       style={{
                         fontSize: '14px',
                         margin: 0,
-                        color: notification.isRead ? '#666' : '#000',
+                        color: notification.isRead ? '#666' : '#059669',
                       }}
                     >
                       {notification.title}
@@ -127,8 +129,8 @@ const NotificationDropdown: React.FC<NotificationDropdownProps> = ({
         />
       )}
 
-      <div style={{ padding: '12px 16px', borderTop: '1px solid #f0f0f0' }}>
-        <Button type="link" onClick={onViewAll} style={{ padding: 0 }}>
+      <div style={{ padding: '12px 16px', borderTop: '2px solid #ecfdf5', background: '#f8fafc' }}>
+        <Button type="link" onClick={onViewAll} style={{ padding: 0, color: '#059669' }}>
           View All Notifications
         </Button>
       </div>

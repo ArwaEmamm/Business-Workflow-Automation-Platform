@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import EmployeeSidebar from '../components/employee/EmployeeSidebar';
 import { FaUserCircle } from 'react-icons/fa';
 import NotificationIcon from '../components/notifications/NotificationIcon';
@@ -35,7 +35,7 @@ const EmployeeLayout: React.FC<{ children: React.ReactNode }> = ({ children }) =
     <div style={{ minHeight: '100vh', backgroundColor: '#F5F5F5', display: 'flex', flexDirection: 'row' }}>
       <EmployeeSidebar />
       <div style={{ flex: 1 }}>
-        <div style={{ backgroundColor: '#007FFF', color: '#fff', padding: '8px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div style={{ background: 'linear-gradient(90deg, #059669 0%, #047857 100%)', color: '#fff', padding: '8px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ fontWeight: 600 }}>Employee Portal</div>
           <div style={{ display: 'flex', gap: 12, alignItems: 'center', position: 'relative' }} ref={dropdownRef}>
             <NotificationIcon />

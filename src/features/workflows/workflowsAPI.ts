@@ -3,17 +3,33 @@ import type { WorkflowFormData } from '../../types/workflow.types';
 
 export const workflowsApi = {
   create: async (workflow: WorkflowFormData) => {
+    const token = localStorage.getItem('auth_token');
+    if (!token) {
+      throw new Error('Authentication required');
+    }
+
     const response = await fetch(api.workflows.create, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+        'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify(workflow)
     });
 
     if (!response.ok) {
-      throw new Error('Failed to create workflow');
+      let bodyText = '';
+      try {
+        const json = await response.json();
+        bodyText = JSON.stringify(json);
+      } catch (e) {
+        try {
+          bodyText = await response.text();
+        } catch (ee) {
+          bodyText = '<unreadable response body>';
+        }
+      }
+      throw new Error(`Failed to create workflow (status ${response.status}): ${bodyText}`);
     }
 
     return response.json();

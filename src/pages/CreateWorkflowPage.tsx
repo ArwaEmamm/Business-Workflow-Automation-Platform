@@ -2,6 +2,7 @@ import { useAppDispatch } from '../app/hooks';
 import { createWorkflow } from '../features/workflows/workflowsSlice';
 import { WorkflowForm } from '../components/workflows/WorkflowForm';
 import type { WorkflowFormData } from '../types/workflow.types';
+import './CreateWorkflowPage.css';
 
 export const CreateWorkflowPage = () => {
   const dispatch = useAppDispatch();
@@ -12,8 +13,13 @@ export const CreateWorkflowPage = () => {
 
   return (
     <div className="create-workflow-page">
-      <h1>Create Workflow</h1>
-      <WorkflowForm onSubmit={handleSubmit} />
+      <div className="create-workflow-container">
+        <div className="create-workflow-header">
+          <h1 className="create-workflow-title">Create New Workflow</h1>
+          <p className="create-workflow-subtitle">Design and configure a new workflow for your team</p>
+        </div>
+        <WorkflowForm onSubmit={handleSubmit} />
+      </div>
     </div>
   );
 };

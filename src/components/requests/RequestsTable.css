@@ -1,7 +1,7 @@
 .recent-table-wrap {
   overflow-x: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(5,150,105,0.08);
 }
 
 .recent-table {
@@ -12,25 +12,27 @@
 }
 
 .recent-table th {
-  background: #f8f9fa;
-  color: #495057;
-  padding: 12px 16px;
+  background: linear-gradient(90deg, #f0fdf4 0%, #ecfdf5 100%);
+  color: #059669;
+  padding: 14px 16px;
   text-align: left;
-  font-weight: 600;
-  border-bottom: 2px solid #dee2e6;
+  font-weight: 700;
+  border-bottom: 2px solid rgba(5,150,105,0.1);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-size: 12px;
 }
 
 .recent-table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #dee2e6;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(5,150,105,0.05);
   vertical-align: middle;
+  color: #374151;
 }
 
 .recent-table tbody tr:hover {
-  background: #f8f9fa;
+  background: linear-gradient(90deg, #f0fff7 0%, #ecfdf5 60%);
+  transition: all 0.2s ease;
 }
 
 .recent-table tbody tr:last-child td {
@@ -39,44 +41,45 @@
 
 .status-pill {
   display: inline-block;
-  padding: 4px 12px;
+  padding: 6px 14px;
   border-radius: 20px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .status-pill.pending {
-  background: #fff3cd;
-  color: #856404;
+  background: #fef3c7;
+  color: #b45309;
 }
 
 .status-pill.approved {
-  background: #d4edda;
-  color: #155724;
+  background: #d1fae5;
+  color: #059669;
+  font-weight: 700;
 }
 
 .status-pill.rejected {
-  background: #f8d7da;
-  color: #721c24;
+  background: #fee2e2;
+  color: #9f1239;
 }
 
 .status-pill.in-progress,
 .status-pill.processing {
-  background: #cce7ff;
-  color: #004085;
+  background: #d1fae5;
+  color: #059669;
 }
 
 .action-link {
-  color: #007bff;
+  color: #059669;
   text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
 .action-link:hover {
-  color: #0056b3;
+  color: #047857;
   text-decoration: underline;
 }
 
@@ -85,7 +88,7 @@
   width: 20px;
   height: 20px;
   border: 2px solid #f3f3f3;
-  border-top: 2px solid #007bff;
+  border-top: 2px solid #059669;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }

@@ -18,6 +18,279 @@ const WorkflowForm: React.FC<WorkflowFormProps> = ({ workflow, onClose, onSave }
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
+  // Add CSS styles for the form
+  const formStyles = `
+    .workflow-form-modal {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 16px;
+      box-shadow: 0 20px 25px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.04);
+      border: 1px solid rgba(16,185,129,0.1);
+      max-width: 600px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .workflow-form-modal .modal-header {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border-bottom: 1px solid rgba(16,185,129,0.1);
+      padding: 24px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    .workflow-form-modal .modal-header h2 {
+      margin: 0;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .workflow-form-modal .modal-header h2::before {
+      content: '⚙️';
+      font-size: 1.75rem;
+    }
+
+    .workflow-form-modal .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #6b7280;
+      padding: 4px;
+      border-radius: 50%;
+      transition: all 0.2s ease;
+    }
+
+    .workflow-form-modal .modal-close:hover {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    .workflow-form-modal form {
+      padding: 24px;
+    }
+
+    .workflow-form-modal .form-group {
+      margin-bottom: 24px;
+    }
+
+    .workflow-form-modal .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #374151;
+      font-size: 0.875rem;
+    }
+
+    .workflow-form-modal .form-group input,
+    .workflow-form-modal .form-group textarea,
+    .workflow-form-modal .form-group select {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid rgba(16,185,129,0.2);
+      border-radius: 8px;
+      font-size: 0.875rem;
+      transition: all 0.2s ease;
+      background: white;
+    }
+
+    .workflow-form-modal .form-group input:focus,
+    .workflow-form-modal .form-group textarea:focus,
+    .workflow-form-modal .form-group select:focus {
+      outline: none;
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
+    }
+
+    .workflow-form-modal .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .workflow-form-modal .steps-container {
+      border: 2px solid rgba(16,185,129,0.2);
+      border-radius: 12px;
+      padding: 20px;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    }
+
+    .workflow-form-modal .step-item {
+      background: white;
+      border: 1px solid rgba(16,185,129,0.1);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .workflow-form-modal .step-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .workflow-form-modal .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .workflow-form-modal .step-number {
+      font-weight: 700;
+      color: #10b981;
+      background: rgba(16,185,129,0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+    }
+
+    .workflow-form-modal .step-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .workflow-form-modal .btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .workflow-form-modal .btn-sm {
+      padding: 4px 8px;
+      font-size: 0.7rem;
+    }
+
+    .workflow-form-modal .btn-secondary {
+      background: #f3f4f6;
+      color: #374151;
+    }
+
+    .workflow-form-modal .btn-secondary:hover {
+      background: #e5e7eb;
+    }
+
+    .workflow-form-modal .btn-danger {
+      background: #fef2f2;
+      color: #dc2626;
+    }
+
+    .workflow-form-modal .btn-danger:hover {
+      background: #fecaca;
+    }
+
+    .workflow-form-modal .step-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .workflow-form-modal .field-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .workflow-form-modal .field-group label {
+      margin-bottom: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #6b7280;
+    }
+
+    .workflow-form-modal .field-group input,
+    .workflow-form-modal .field-group select {
+      padding: 8px 12px;
+      border: 1px solid rgba(16,185,129,0.2);
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+
+    .workflow-form-modal .role-badge {
+      margin-top: 4px;
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-align: center;
+      color: white;
+    }
+
+    .workflow-form-modal .add-step-btn {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(16,185,129,0.3);
+      margin-top: 16px;
+    }
+
+    .workflow-form-modal .add-step-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16,185,129,0.4);
+    }
+
+    .workflow-form-modal .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      padding: 24px;
+      border-top: 1px solid rgba(16,185,129,0.1);
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-radius: 0 0 16px 16px;
+    }
+
+    .workflow-form-modal .modal-footer .btn {
+      padding: 10px 20px;
+      font-size: 0.875rem;
+    }
+
+    .workflow-form-modal .modal-footer .btn-primary {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      box-shadow: 0 2px 8px rgba(16,185,129,0.3);
+    }
+
+    .workflow-form-modal .modal-footer .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(16,185,129,0.4);
+    }
+
+    .workflow-form-modal .error {
+      border-color: #ef4444 !important;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+    }
+
+    .workflow-form-modal .error-message {
+      color: #ef4444;
+      font-size: 0.75rem;
+      margin-top: 4px;
+    }
+  `;
+
+  // Inject styles
+  React.useEffect(() => {
+    const styleSheet = document.createElement("style");
+    styleSheet.type = "text/css";
+    styleSheet.innerText = formStyles;
+    document.head.appendChild(styleSheet);
+
+    return () => {
+      document.head.removeChild(styleSheet);
+    };
+  }, []);
+
   useEffect(() => {
     if (workflow) {
       setFormData({

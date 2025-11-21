@@ -6,6 +6,7 @@ import type { Workflow } from '../types/workflow.types';
 import { updateWorkflow, fetchWorkflowById } from '../features/workflows/workflowsSlice';
 import { WorkflowForm } from '../components/workflows/WorkflowForm';
 import type { WorkflowFormData } from '../types/workflow.types';
+import './EditWorkflowPage.css';
 
 export const EditWorkflowPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -41,12 +42,17 @@ export const EditWorkflowPage = () => {
 
   return (
     <div className="edit-workflow-page">
-      <h1>Edit Workflow</h1>
-      <WorkflowForm
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        isEdit
-      />
+      <div className="edit-workflow-container">
+        <div className="edit-workflow-header">
+          <h1 className="edit-workflow-title">Edit Workflow</h1>
+          <p className="edit-workflow-subtitle">Update and modify workflow configuration</p>
+        </div>
+        <WorkflowForm
+          initialValues={initialValues}
+          onSubmit={handleSubmit}
+          isEdit
+        />
+      </div>
     </div>
   );
 };

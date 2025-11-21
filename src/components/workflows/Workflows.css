@@ -1,22 +1,241 @@
-.workflow-info .ant-descriptions-item {
+.workflow-form-wrapper {
+  width: 100%;
+}
+
+.workflow-form-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(5,150,105,0.1);
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(5,150,105,0.08);
+}
+
+.workflow-form-card .ant-card-body {
+  padding: 28px;
+}
+
+.workflow-form {
+  width: 100%;
+}
+
+.form-label {
+  color: #1f2937;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.form-input {
+  border-radius: 8px !important;
+  border: 2px solid rgba(5,150,105,0.1) !important;
+  transition: all 0.2s ease !important;
+  font-size: 0.95rem;
+}
+
+.form-input:hover {
+  border-color: rgba(5,150,105,0.2) !important;
+}
+
+.form-input:focus {
+  border-color: #059669 !important;
+  box-shadow: 0 0 0 3px rgba(5,150,105,0.1) !important;
+}
+
+.form-select {
+  border-radius: 8px !important;
+}
+
+.form-select .ant-select-selector {
+  border-color: rgba(5,150,105,0.1) !important;
+  border-radius: 8px !important;
+}
+
+.form-select .ant-select-selector:hover {
+  border-color: rgba(5,150,105,0.2) !important;
+}
+
+.form-select.ant-select-focused .ant-select-selector {
+  border-color: #059669 !important;
+  box-shadow: 0 0 0 3px rgba(5,150,105,0.1) !important;
+}
+
+.steps-section {
+  margin: 24px 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  border-radius: 12px;
+  border: 2px solid rgba(5,150,105,0.1);
+}
+
+.steps-title {
+  color: #059669;
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.step-card {
+  background: white !important;
+  border: 2px solid rgba(5,150,105,0.1) !important;
+  border-radius: 10px !important;
+  margin-bottom: 16px !important;
+  transition: all 0.2s ease;
+}
+
+.step-card:hover {
+  border-color: #059669 !important;
+  box-shadow: 0 4px 12px rgba(5,150,105,0.1) !important;
+}
+
+.step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
   padding-bottom: 12px;
+  border-bottom: 2px solid rgba(5,150,105,0.1);
 }
 
 .step-number {
-  width: 24px;
-  height: 24px;
-  background-color: #1890ff;
-  border-radius: 50%;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
   color: white;
-  font-size: 12px;
-  font-weight: bold;
+  border-radius: 50%;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.step-label {
+  color: #059669;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.add-step-btn {
+  width: 100% !important;
+  color: #059669 !important;
+  border-color: #059669 !important;
+  border-width: 2px !important;
+  font-weight: 600 !important;
+  height: 40px;
+  border-radius: 8px !important;
+}
+
+.add-step-btn:hover {
+  color: #047857 !important;
+  border-color: #047857 !important;
+  background: #f0fdf4 !important;
+}
+
+.remove-step-btn {
+  color: #ef4444 !important;
+  font-size: 18px !important;
+}
+
+.remove-step-btn:hover {
+  color: #dc2626 !important;
+  transform: scale(1.1);
+}
+
+.form-actions {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 2px solid rgba(5,150,105,0.1);
+}
+
+.form-actions .ant-btn-primary {
+  background: linear-gradient(90deg, #059669 0%, #047857 100%) !important;
+  border: none !important;
+  height: 40px;
+  font-weight: 700;
+  border-radius: 8px !important;
+}
+
+.form-actions .ant-btn-primary:hover {
+  background: linear-gradient(90deg, #047857 0%, #065f46 100%) !important;
+  box-shadow: 0 6px 20px rgba(5,150,105,0.25) !important;
+  transform: translateY(-2px);
+}
+
+.form-actions .ant-btn:not(.ant-btn-primary) {
+  height: 40px;
+  font-weight: 600;
+  border-radius: 8px !important;
+}
+
+.workflows-list {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.workflows-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(5,150,105,0.1);
+}
+
+.workflows-header h1 {
+  color: #059669;
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 800;
+}
+
+.workflows-header .ant-btn-primary {
+  background: linear-gradient(90deg, #059669 0%, #047857 100%);
+  border: none;
+}
+
+.workflows-header .ant-btn-primary:hover {
+  background: linear-gradient(90deg, #047857 0%, #065f46 100%);
+  box-shadow: 0 6px 20px rgba(5,150,105,0.2);
+}
+
+.workflow-form {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.workflow-form .ant-form-item label {
+  color: #1f2937 !important;
+  font-weight: 600;
+}
+
+.workflow-form .ant-input,
+.workflow-form .ant-input-number,
+.workflow-form .ant-select-selector {
+  border-color: rgba(5,150,105,0.1) !important;
+}
+
+.workflow-form .ant-input:focus,
+.workflow-form .ant-input-number:focus {
+  border-color: #059669 !important;
+  box-shadow: 0 0 0 3px rgba(5,150,105,0.1) !important;
 }
 
 .ant-timeline-item-label {
   width: 120px !important;
+}
+
+/* Buttons styling */
+.workflow-form .ant-btn-primary {
+  background: linear-gradient(90deg, #059669 0%, #047857 100%);
+  border: none;
+}
+
+.workflow-form .ant-btn-primary:hover {
+  background: linear-gradient(90deg, #047857 0%, #065f46 100%);
 }
 
 /* Adjust modal width on smaller screens */
@@ -29,4 +248,89 @@
   .ant-timeline-item-label {
     width: 80px !important;
   }
+
+  .workflows-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .create-btn {
+    width: 100%;
+  }
+}
+
+/* Workflows list page */
+.workflows-list {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid rgba(5, 150, 105, 0.15);
+}
+
+.page-title-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.page-title-icon {
+  font-size: 32px;
+  color: #059669;
+}
+
+.page-title {
+  color: #059669;
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.page-subtitle {
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin: 4px 0 0 0;
+}
+
+.create-btn {
+  background: linear-gradient(90deg, #059669 0%, #047857 100%) !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  height: auto !important;
+}
+
+.create-btn:hover {
+  background: linear-gradient(90deg, #047857 0%, #065f46 100%) !important;
+  box-shadow: 0 6px 20px rgba(5,150,105,0.2) !important;
+  transform: translateY(-2px);
+}
+
+.workflows-list .ant-table {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(5,150,105,0.05);
+}
+
+.workflows-list .ant-table-thead > tr > th {
+  background: linear-gradient(90deg, #f0fdf4 0%, #ecfdf5 100%) !important;
+  color: #059669 !important;
+  font-weight: 700 !important;
+}
+
+.workflows-list .ant-table-tbody > tr:hover {
+  background: #f0fff7 !important;
 }

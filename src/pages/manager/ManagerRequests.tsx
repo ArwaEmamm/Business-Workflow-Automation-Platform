@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { endpoints } from '../../api/apiEndpoints';
 import RequestsTable from '../../components/requests/RequestsTable';
 import EmployeeRequestDetail from '../../components/requests/EmployeeRequestDetail';
-import '../../pages/employee/EmployeeDashboard.css';
+import { FileTextOutlined } from '@ant-design/icons';
+import '../admin/RequestsList.css';
 
 interface RequestItem {
   id: string;
@@ -26,8 +27,6 @@ export default function ManagerRequests() {
 
   const [selectedRequest, setSelectedRequest] = useState<RequestItem | null>(null);
   const [detailsOpen, setDetailsOpen] = useState(false);
-  const [actionComment, setActionComment] = useState('');
-  const [actionLoading, setActionLoading] = useState(false);
 
   const fetchPending = async () => {
     try {
@@ -74,7 +73,6 @@ export default function ManagerRequests() {
 
   const closeDetails = () => {
     setSelectedRequest(null);
-    setActionComment('');
     setDetailsOpen(false);
     // refresh lists when closing details to reflect any changes
     fetchPending().catch(() => {});
@@ -83,7 +81,6 @@ export default function ManagerRequests() {
 
   const performAction = async (requestId: string, decision: 'approved' | 'rejected') => {
     try {
-      setActionLoading(true);
       // backend expects POST /requests/:id/approve with decision in body
       const token = localStorage.getItem('auth_token');
       if (!token) throw new Error('Not authenticated');
@@ -94,7 +91,7 @@ export default function ManagerRequests() {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ decision, comment: actionComment })
+        body: JSON.stringify({ decision, comment: '' })
       });
 
       if (res.status === 403) {
@@ -111,59 +108,40 @@ export default function ManagerRequests() {
       closeDetails();
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setActionLoading(false);
     }
   };
-
-  // compute stats from lists
-  const pendingCount = pending.length;
-  const approvedCount = allRequests.filter(r => r.status === 'approved').length;
-  const rejectedCount = allRequests.filter(r => r.status === 'rejected').length;
-
-  const avgResponseTime = (() => {
-    try {
-      const approved = allRequests.filter(r => r.status === 'approved' && Array.isArray(r.approvals) && r.approvals.length);
-      if (!approved.length) return null;
-      const diffs = approved.map(r => {
-        const approvedEntry = (r.approvals && r.approvals[r.approvals.length - 1]) || null;
-        if (!approvedEntry || !approvedEntry.date || !r.createdAt) return null;
-        return new Date(approvedEntry.date).getTime() - new Date(r.createdAt).getTime();
-      }).filter(Boolean) as number[];
-      if (!diffs.length) return null;
-      const avgMs = diffs.reduce((a,b) => a+b, 0) / diffs.length;
-      return Math.round(avgMs / (1000*60)); // minutes
-    } catch { return null; }
-  })();
 
   if (loading) return <div style={{ padding: 24 }}>Loading...</div>;
   if (error) return <div style={{ padding: 24 }}><strong style={{ color: 'red' }}>{error}</strong></div>;
 
   return (
     <>
-      <div className="employee-title">Manager Dashboard</div>
+      <div className="page-header">
+        <div className="page-title-section">
+          <FileTextOutlined className="page-title-icon" />
+          <div>
+            <h1 className="page-title">Requests</h1>
+            <p className="page-subtitle">Track and manage all workflow requests</p>
+          </div>
+        </div>
+      </div>
 
       <section className="stats-row">
         <div className="stat-card">
-          <div className="stat-card-title" style={{ color: '#1976D2' }}>Pending</div>
-          <div className="stat-card-value">{pendingCount}</div>
+          <div className="stat-card-title" style={{ color: '#059669' }}>Pending</div>
+          <div className="stat-card-value">{pending.length}</div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-title" style={{ color: '#4CAF50' }}>Approved</div>
-          <div className="stat-card-value">{approvedCount}</div>
+          <div className="stat-card-title" style={{ color: '#10b981' }}>Approved</div>
+          <div className="stat-card-value">{allRequests.filter(r => r.status === 'approved').length}</div>
         </div>
         <div className="stat-card">
-          <div className="stat-card-title" style={{ color: '#DC2626' }}>Rejected</div>
-          <div className="stat-card-value">{rejectedCount}</div>
-        </div>
-        <div className="stat-card">
-          <div className="stat-card-title" style={{ color: '#666666' }}>Avg response (min)</div>
-          <div className="stat-card-value">{avgResponseTime ?? '-'}</div>
+          <div className="stat-card-title" style={{ color: '#dc2626' }}>Rejected</div>
+          <div className="stat-card-value">{allRequests.filter(r => r.status === 'rejected').length}</div>
         </div>
       </section>
 
-      <section className="recent-requests-card">
-        <h3 className="recent-requests-title">Pending Requests</h3>
+      <section className="requests-table-section">
         <RequestsTable
           requests={pending.map(r => ({
             id: r.id,

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import type { RootState } from '../../app/store';
 import { fetchWorkflows, deleteWorkflow } from '../../features/workflows/workflowsSlice';
 import { Button, Table, Space, message } from 'antd';
+import { PlusOutlined, FileTextOutlined } from '@ant-design/icons';
 import type { ColumnsType } from 'antd/es/table';
 import type { Workflow } from '../../types/workflow.types';
 
@@ -72,9 +73,25 @@ export const WorkflowsList = () => {
 
   return (
     <div className="workflows-list">
-      <div className="workflows-header">
-        <h1>Workflows</h1>
-        <Button type="primary" onClick={() => navigate('/workflows/create')}>
+      <div className="page-header">
+        <div className="page-title-section">
+          <FileTextOutlined className="page-title-icon" />
+          <div>
+            <h1 className="page-title">Workflows</h1>
+            <p className="page-subtitle">Create and manage workflow templates</p>
+          </div>
+        </div>
+        <Button 
+          type="primary" 
+          icon={<PlusOutlined />}
+          onClick={() => navigate('/workflows/create')}
+          className="create-btn"
+          style={{
+            background: 'linear-gradient(90deg, #059669 0%, #047857 100%)',
+            borderColor: '#059669',
+            fontWeight: 600
+          }}
+        >
           Create New Workflow
         </Button>
       </div>

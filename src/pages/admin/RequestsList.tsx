@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Table, Button, Space, Tag, message, Select, DatePicker, Input } from 'antd';
+import { FileTextOutlined } from '@ant-design/icons';
 import { endpoints } from '../../api/apiEndpoints';
 import type { ColumnsType } from 'antd/es/table';
 import RequestDetail from './RequestDetail';
 import { useNavigate } from 'react-router-dom';
+import './RequestsList.css';
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
@@ -113,9 +115,9 @@ const RequestsList: React.FC = () => {
     { title: 'Created At', dataIndex: 'createdAt', key: 'createdAt', render: (d) => d ? new Date(d).toLocaleString() : '-' },
     { title: 'Actions', key: 'actions', render: (_: any, record) => (
       <Space>
-        <Button size="small" onClick={() => handleView(record)}>View</Button>
-        <Button size="small" onClick={() => handleForceDecision(record.id, 'approved')}>Force Approve</Button>
-        <Button size="small" danger onClick={() => handleForceDecision(record.id, 'rejected')}>Force Reject</Button>
+        <Button size="small" className="action-btn-view" onClick={() => handleView(record)}>View</Button>
+        <Button size="small" className="action-btn-approve" onClick={() => handleForceDecision(record.id, 'approved')}>Force Approve</Button>
+        <Button size="small" className="action-btn-reject" onClick={() => handleForceDecision(record.id, 'rejected')}>Force Reject</Button>
       </Space>
     ) }
   ];
@@ -133,9 +135,18 @@ const RequestsList: React.FC = () => {
   }, [data, statusFilter, workflowFilter, search]);
 
   return (
-    <div style={{ padding: 24 }}>
-      <div style={{ display: 'flex', gap: 12, marginBottom: 12, alignItems: 'center' }}>
-        <Input.Search placeholder="Search by title or ID" onSearch={val => setSearch(val)} style={{ width: 300 }} />
+    <div className="requests-page">
+      <div className="page-header">
+        <div className="page-title-section">
+          <FileTextOutlined className="page-title-icon" />
+          <div>
+            <h1 className="page-title">Requests Management</h1>
+            <p className="page-subtitle">Track and manage all workflow requests</p>
+          </div>
+        </div>
+      </div>
+      <div className="filters-section">
+        <Input.Search placeholder="Search by title or ID" onSearch={val => setSearch(val)} />
         <Select allowClear placeholder="Status" style={{ width: 160 }} onChange={v => setStatusFilter(v || null)}>
           <Option value="pending">Pending</Option>
           <Option value="approved">Approved</Option>

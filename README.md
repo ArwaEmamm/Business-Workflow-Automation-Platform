@@ -19,55 +19,90 @@ If you are developing a production application, we recommend updating the config
 export default defineConfig([
   globalIgnores(['dist']),
   {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+    **مشروع واجهة Workflow (React + TypeScript + Vite)**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+    ملخص سريع (بالعربي):
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    - هذا المشروع هو واجهة أمامية مبنية بـ `React` + `TypeScript` ويدار عبر `Vite`.
+    - تنسيق الملفات: المكونات في `src/`، الصور والميديا في `src/assets`.
+    - تم استخدام مكتبات UI مثل Ant Design وبعض أيقونات `lucide-react`.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+    Quick summary (English):
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+    - Frontend app built with `React` + `TypeScript` and powered by `Vite`.
+    - Components live under `src/`. Static images are kept in `src/assets`.
+    - Uses Ant Design and lucide-react for UI and icons.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+    ---
+
+    **معلومات النظام (System info)**
+
+    - Node/npm: Use a recent Node.js (18+ recommended) and npm.
+    - Run the dev server (PowerShell):
+
+    ```powershell
+    npm install
+    npm run dev
+    ```
+
+    - Build for production:
+
+    ```powershell
+    npm run build
+    ```
+
+    - Dev server proxy: The Vite dev server proxies `^/api/.*` to the backend at `http://localhost:4000` — see `vite.config.ts`.
+
+    - Authentication: the app stores the JWT token in `localStorage` under the key `auth_token`. Many API calls add `Authorization: Bearer <token>`.
+
+    ---
+
+    **موقع الصور / لقطات الشاشة**
+
+    الصور المرفوعة موجودة في `src/assets`. تم تضمين لقطات للشاشات المهمة أدناه — افتحي الملف محليًا لتأكيد المسارات والأسماء.
+
+    - Employer Dashboard
+      ![Employer Dashboard](src/assets/employerDashboard.JPG)
+
+    - HR Manager Dashboard
+      ![HR Manager Dashboard](src/assets/hrmangerdashboard.JPG)
+
+    - Landing Page
+      ![Landing Page](src/assets/landingpage.JPG)
+
+    - Login
+      ![Login](src/assets/login.JPG)
+
+    - Manager Dashboard
+      ![Manager Dashboard](src/assets/mangerdashboard.JPG)
+
+    - Notifications (example)
+      ![Notifications](src/assets/notofilcation.JPG)
+
+    ---
+
+    **المسارات والصفحات المهمة (Important routes)**
+
+    - `/` — Landing page
+    - `/login` — Login
+    - `/hr/workflows` — Workflows list (HR)
+    - `/hr/workflows/create` — Create workflow page (the form used to create a workflow)
+    - `/requests` and role-specific pages live in `src/pages/` and `src/layouts/`
+
+    **ملاحظات مفيدة للمطورين**
+
+    - إذا رأيت 403 عند POST إلى `/api/workflows` من الـ dev server، تأكد من أن:
+      - حصلت على `auth_token` في `localStorage` بعد تسجيل الدخول (`localStorage.getItem('auth_token')`).
+      - الـ backend يعمل على `http://localhost:4000` أو عدّل `vite.config.ts` إذا كان مختلفًا.
+    - لمشاهدة سجلات البروكسي أثناء التطوير شغّل `npm run dev` وتابع الطرفية — تم تمكين بعض رسائل البروكسي في `vite.config.ts`.
+
+    ---
+
+    If you want me to change captions or add/remove screenshots, tell me which images to swap or new filenames to include.
+
+    If you want the README fully in Arabic only, I can replace the English sections with Arabic translations.
+
+    ---
+
+    Maintainers: keep screenshots up to date by replacing files in `src/assets` and committing them. When embedding new images, use the relative path `src/assets/<filename>`.
+

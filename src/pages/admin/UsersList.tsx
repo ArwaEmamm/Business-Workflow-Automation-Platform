@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { Table, Button, Space, Tag, message, Select, Input, Popconfirm } from 'antd';
+import { UserAddOutlined } from '@ant-design/icons';
 import { endpoints } from '../../api/apiEndpoints';
 import type { ColumnsType } from 'antd/es/table';
+import './UsersList.css';
 // import { useNavigate } from 'react-router-dom';
 
 const { Search } = Input;
@@ -78,15 +80,15 @@ const UsersList: React.FC = () => {
     { title: 'Name', dataIndex: 'name', key: 'name' },
     { title: 'Email', dataIndex: 'email', key: 'email' },
     { title: 'Role', dataIndex: 'role', key: 'role' },
-    { title: 'Active', dataIndex: 'isActive', key: 'isActive', render: (a) => a ? <Tag color="green">Active</Tag> : <Tag>Inactive</Tag> },
+    { title: 'Active', dataIndex: 'isActive', key: 'isActive', render: (a) => a ? <Tag className="ant-tag-green">Active</Tag> : <Tag>Inactive</Tag> },
     { title: 'Last Login', dataIndex: 'lastLogin', key: 'lastLogin', render: (d) => d ? new Date(d).toLocaleString() : '-' },
     { title: 'Actions', key: 'actions', render: (_: any, record) => (
       <Space>
-        <Button size="small" onClick={() => handleEdit(record)}>Edit</Button>
+        <Button size="small" className="action-btn-edit" onClick={() => handleEdit(record)}>Edit</Button>
         <Popconfirm title={record.isActive ? 'Deactivate user?' : 'Activate user?'} onConfirm={() => handleActivate(record.id, !record.isActive)}>
-          <Button size="small">{record.isActive ? 'Deactivate' : 'Activate'}</Button>
+          <Button size="small" className={record.isActive ? 'action-btn-deactivate' : 'action-btn-activate'}>{record.isActive ? 'Deactivate' : 'Activate'}</Button>
         </Popconfirm>
-        <Button size="small" onClick={() => handleResetPassword(record.id)}>Reset Password</Button>
+        <Button size="small" className="action-btn-reset" onClick={() => handleResetPassword(record.id)}>Reset Password</Button>
       </Space>
     ) }
   ];
@@ -101,9 +103,18 @@ const UsersList: React.FC = () => {
   }), [data, roleFilter, search]);
 
   return (
-    <div style={{ padding: 24 }}>
-      <div style={{ display: 'flex', gap: 12, marginBottom: 12 }}>
-        <Search placeholder="Search by name/email/id" onSearch={val => setSearch(val)} style={{ width: 300 }} />
+    <div className="users-page">
+      <div className="page-header">
+        <div className="page-title-section">
+          <UserAddOutlined className="page-title-icon" />
+          <div>
+            <h1 className="page-title">Users Management</h1>
+            <p className="page-subtitle">Manage user accounts and permissions</p>
+          </div>
+        </div>
+      </div>
+      <div className="filters-section">
+        <Search placeholder="Search by name/email/id" onSearch={val => setSearch(val)} />
         <Select allowClear placeholder="Role" style={{ width: 180 }} onChange={v => setRoleFilter(v || null)}>
           <Option value="hr_manager">HR Manager</Option>
           <Option value="manager">Manager</Option>

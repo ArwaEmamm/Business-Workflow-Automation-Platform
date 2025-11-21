@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Descriptions, Timeline, Card, Button, Tag, message } from 'antd';
 import { endpoints } from '../../api/apiEndpoints';
+import './RequestDetail.css';
 
 interface RequestDetailProps {
   requestId: string;
@@ -73,40 +74,57 @@ const RequestDetail: React.FC<RequestDetailProps> = ({ requestId, visible, onClo
   };
 
   return (
-    <Modal title={data?.title ? data.title : 'Request Details'} open={visible} onCancel={onClose} footer={null} width={800}>
-      {loading && <div>Loading...</div>}
-      {!loading && !data && <div>No data available</div>}
+    <Modal
+      title={data?.title ? data.title : 'Request Details'}
+      open={visible}
+      onCancel={onClose}
+      footer={null}
+      width={800}
+      className="request-detail-modal"
+    >
+      {loading && <div className="request-detail-loading">Loading request details...</div>}
+      {!loading && !data && <div className="request-detail-no-data">No data available</div>}
 
       {data && (
         <div>
-          <Card style={{ marginBottom: 12 }}>
+          <Card className="request-detail-card">
             <Descriptions column={1} bordered>
               <Descriptions.Item label="Title">{data.title ?? '-'}</Descriptions.Item>
               <Descriptions.Item label="Description">{data.description ?? '-'}</Descriptions.Item>
               <Descriptions.Item label="Workflow">{data.workflow?.name ?? data.workflowName ?? data.workflowId ?? '-'}</Descriptions.Item>
-              <Descriptions.Item label="Status"><Tag color={data.status === 'approved' ? 'green' : data.status === 'rejected' ? 'red' : 'orange'}>{data.status ?? '-'}</Tag></Descriptions.Item>
-              <Descriptions.Item label="Created By">{(data.createdBy && (typeof data.createdBy === 'object')) ? data.createdBy.name : (data.createdBy ?? '-')}</Descriptions.Item>
+              <Descriptions.Item label="Status">
+                <Tag className={data.status === 'approved' ? 'ant-tag-green' : data.status === 'rejected' ? 'ant-tag-red' : 'ant-tag-orange'}>
+                  {data.status ?? '-'}
+                </Tag>
+              </Descriptions.Item>
+              <Descriptions.Item label="Created By">
+                {(data.createdBy && (typeof data.createdBy === 'object')) ? data.createdBy.name : (data.createdBy ?? '-')}
+              </Descriptions.Item>
               <Descriptions.Item label="Created At">{data.createdAt ? new Date(data.createdAt).toLocaleString() : '-'}</Descriptions.Item>
             </Descriptions>
           </Card>
 
-          <Card title="Workflow Steps" style={{ marginBottom: 12 }}>
-            <Timeline mode="left">
+          <Card title="Workflow Steps" className="request-detail-card">
+            <Timeline mode="left" className="request-detail-timeline">
               {((data.workflow && data.workflow.steps) || data.steps || []).map((s: any, idx: number) => (
-                <Timeline.Item key={idx} label={`Step ${s.order ?? idx + 1}`}>{s.title ?? '-'} — {s.assignedRole ?? (s.assignedTo ?? '-')}</Timeline.Item>
+                <Timeline.Item key={idx} label={`Step ${s.order ?? idx + 1}`}>
+                  {s.title ?? '-'} — {s.assignedRole ?? (s.assignedTo ?? '-')}
+                </Timeline.Item>
               ))}
             </Timeline>
           </Card>
 
-          <Card title="Approvals History">
-            <Timeline>
+          <Card title="Approvals History" className="request-detail-card">
+            <Timeline className="request-detail-timeline">
               {((data.approvalsHistory || data.history || [])).map((h: any, i: number) => (
-                <Timeline.Item key={i}>{(h.user && h.user.name) ? h.user.name : (h.user ?? '-')} — {h.decision ?? '-'} — {(h.at || h.atedAt || h.date) ? new Date(h.at || h.atedAt || h.date).toLocaleString() : '-'} {h.comment ? `— ${h.comment}` : ''}</Timeline.Item>
+                <Timeline.Item key={i}>
+                  {(h.user && h.user.name) ? h.user.name : (h.user ?? '-')} — {h.decision ?? '-'} — {(h.at || h.atedAt || h.date) ? new Date(h.at || h.atedAt || h.date).toLocaleString() : '-'} {h.comment ? `— ${h.comment}` : ''}
+                </Timeline.Item>
               ))}
             </Timeline>
           </Card>
 
-          <div style={{ marginTop: 12, display: 'flex', gap: 8, justifyContent: 'flex-end' }}>
+          <div className="request-detail-actions">
             <Button onClick={onClose} disabled={loading}>Close</Button>
             <Button danger onClick={handleForceReject} disabled={loading}>Force Reject</Button>
             <Button type="primary" onClick={handleForceApprove} disabled={loading}>Force Approve</Button>

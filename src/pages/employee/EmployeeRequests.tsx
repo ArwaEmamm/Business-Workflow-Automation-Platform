@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, message } from 'antd';
-import { FaPlus } from 'react-icons/fa';
+import { PlusOutlined, FileTextOutlined } from '@ant-design/icons';
 import { endpoints } from '../../api/apiEndpoints';
 import EmployeeRequestDetail from '../../components/requests/EmployeeRequestDetail';
 import RequestsTable from '../../components/requests/RequestsTable';
-import './EmployeeRequests.css';
+import '../admin/RequestsList.css';
 
 interface Request {
   id: string;
@@ -34,17 +34,14 @@ export default function EmployeeRequests() {
   const navigate = useNavigate();
   const [requests, setRequests] = useState<Request[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRequestId, setSelectedRequestId] = useState<string | null>(null);
 
   const fetchRequests = async () => {
     setLoading(true);
-    setError(null);
     try {
       const token = localStorage.getItem('auth_token');
       if (!token) {
-        setError('Please login first');
         return;
       }
 
@@ -94,7 +91,6 @@ export default function EmployeeRequests() {
     } catch (err) {
       console.error('Error fetching requests:', err);
       const errorMessage = err instanceof Error ? err.message : 'Error loading requests';
-      setError(errorMessage);
       message.error(errorMessage);
     } finally {
       setLoading(false);
@@ -113,17 +109,28 @@ export default function EmployeeRequests() {
   return (
     <div className="requests-container">
       <div className="page-header">
-        <h1>My Requests</h1>
+        <div className="page-title-section">
+          <FileTextOutlined className="page-title-icon" />
+          <div>
+            <h1 className="page-title">My Requests</h1>
+            <p className="page-subtitle">View and manage your workflow requests</p>
+          </div>
+        </div>
         <Button 
           type="primary"
-          icon={<FaPlus />}
+          icon={<PlusOutlined />}
           onClick={() => navigate('/employee/create-request')}
+          style={{
+            background: 'linear-gradient(90deg, #059669 0%, #047857 100%)',
+            borderColor: '#059669',
+            fontWeight: 600
+          }}
         >
           New Request
         </Button>
       </div>
 
-      <div className="recent-requests-card">
+      <div className="requests-table-section">
         <RequestsTable 
           requests={requests} 
           loading={loading} 

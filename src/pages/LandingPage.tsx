@@ -28,7 +28,7 @@ const LandingPage = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '12px',
-            background: 'linear-gradient(90deg, #6d28d9 0%, #2563eb 100%)',
+            background: 'linear-gradient(90deg, #059669 0%, #047857 100%)',
             padding: '12px 24px',
             borderRadius: '50px',
             color: 'white',
@@ -43,7 +43,7 @@ const LandingPage = () => {
           <h1 style={{
             fontSize: '3.5rem',
             fontWeight: '800',
-            background: 'linear-gradient(90deg, #6d28d9 0%, #2563eb 100%)',
+            background: 'linear-gradient(90deg, #059669 0%, #047857 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             marginBottom: '20px',
@@ -72,14 +72,14 @@ const LandingPage = () => {
               onClick={() => navigate('/login')}
               style={{
                 padding: '16px 40px',
-                background: 'linear-gradient(90deg, #6d28d9 0%, #2563eb 100%)',
+                background: 'linear-gradient(90deg, #059669 0%, #047857 100%)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '12px',
                 fontSize: '1.1rem',
                 fontWeight: '600',
                 cursor: 'pointer',
-                boxShadow: '0 8px 20px rgba(37, 99, 235, 0.3)',
+                boxShadow: '0 8px 20px rgba(5, 150, 105, 0.3)',
                 transition: 'all 0.3s ease',
                 display: 'flex',
                 alignItems: 'center',
@@ -97,8 +97,8 @@ const LandingPage = () => {
               style={{
                 padding: '16px 40px',
                 background: 'white',
-                color: '#2563eb',
-                border: '2px solid #2563eb',
+                color: '#059669',
+                border: '2px solid #059669',
                 borderRadius: '12px',
                 fontSize: '1.1rem',
                 fontWeight: '600',
@@ -106,7 +106,7 @@ const LandingPage = () => {
                 transition: 'all 0.3s ease'
               }}
               onMouseOver={(e) => {
-                e.currentTarget.style.background = '#f0f4ff';
+                e.currentTarget.style.background = '#f0fdf4';
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.background = 'white';

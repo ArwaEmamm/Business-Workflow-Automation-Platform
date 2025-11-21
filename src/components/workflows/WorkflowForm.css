@@ -1,0 +1,144 @@
+.workflow-form-card {
+  border: 2px solid #d1fae5 !important;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(5, 150, 105, 0.1);
+  background: #fff;
+}
+
+.workflow-form {
+  padding: 24px;
+}
+
+.form-label {
+  color: #059669;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.form-input {
+  border: 2px solid #d1fae5;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: #059669 !important;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1) !important;
+}
+
+.form-input:hover {
+  border-color: #10b981;
+}
+
+.steps-section {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 2px solid #f0fdf4;
+}
+
+.steps-title {
+  color: #059669;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.step-card {
+  border: 2px solid #d1fae5;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+  background: #f9fdfb;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.step-card:hover {
+  border-color: #10b981;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.15);
+}
+
+.step-number {
+  position: absolute;
+  left: -16px;
+  top: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.3);
+}
+
+.step-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+
+.step-actions button {
+  font-size: 0.85rem;
+  padding: 6px 12px;
+}
+
+.add-step-btn {
+  background: linear-gradient(90deg, #059669 0%, #047857 100%);
+  border-color: #059669;
+  color: white;
+  margin-top: 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.add-step-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+  justify-content: flex-end;
+}
+
+.form-actions button {
+  padding: 8px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+
+.form-submit-btn {
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  border-color: #059669;
+  color: white;
+}
+
+.form-submit-btn:hover {
+  background: linear-gradient(90deg, #059669 0%, #10b981 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+
+.form-cancel-btn {
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+  border-color: #059669;
+  color: white;
+}
+
+.form-cancel-btn:hover {
+  background: linear-gradient(90deg, #059669 0%, #10b981 100%);
+  border-color: #047857;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
