@@ -89,20 +89,12 @@ export default defineConfig([
     - `/hr/workflows/create` — Create workflow page (the form used to create a workflow)
     - `/requests` and role-specific pages live in `src/pages/` and `src/layouts/`
 
-    **ملاحظات مفيدة للمطورين**
-
-    - إذا رأيت 403 عند POST إلى `/api/workflows` من الـ dev server، تأكد من أن:
-      - حصلت على `auth_token` في `localStorage` بعد تسجيل الدخول (`localStorage.getItem('auth_token')`).
-      - الـ backend يعمل على `http://localhost:4000` أو عدّل `vite.config.ts` إذا كان مختلفًا.
-    - لمشاهدة سجلات البروكسي أثناء التطوير شغّل `npm run dev` وتابع الطرفية — تم تمكين بعض رسائل البروكسي في `vite.config.ts`.
-
-    ---
-
-    If you want me to change captions or add/remove screenshots, tell me which images to swap or new filenames to include.
-
-    If you want the README fully in Arabic only, I can replace the English sections with Arabic translations.
-
-    ---
-
-    Maintainers: keep screenshots up to date by replacing files in `src/assets` and committing them. When embedding new images, use the relative path `src/assets/<filename>`.
+demo https://drive.google.com/file/d/1yvRAS3odhQb6M2v7RWwZKTQTbK6rOv8f/view?usp=sharing![workflows](https://github.com/user-attachments/assets/82b8f7b4-f856-4b4d-8399-8e25983a93c6)
+![details](https://github.com/user-attachments/assets/eab8c172-d570-4307-b6d7-cf4b41e778ad)
+![requests](https://github.com/user-attachments/assets/58f47411-9a00-4e74-bf5b-46b2e1738b83)
+![employerDashboard](https://github.com/user-attachments/assets/da14e151-c173-4fef-b00b-3134d84e0ab9)
+![notofilcation](https://github.com/user-attachments/assets/717c243d-ca4a-47cf-8c1e-61b9e578ad7c)
+![mangerdashboard](https://github.com/user-attachments/assets/4a5dad51-0f27-48e9-b6d7-0d95a7f1b6fb)
+![login](https://github.com/user-attachments/assets/0b47bd74-13a9-4c9f-98cc-4b56b7f2cf58)
+![landingpage](https://github.com/user-attachments/assets/1a0b1688-36c6-4c4c-b5c6-a1b8542ff65e)
 
