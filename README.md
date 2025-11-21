@@ -86,15 +86,18 @@ export default defineConfig([
     - `/` — Landing page
     - `/login` — Login
     - `/hr/workflows` — Workflows list (HR)
-    - `/hr/workflows/create` — Create workflow page (the form used to create a workflow)
+    - `/hr/workflows/create` — Create workflow page (the form used to create a workflow)![landingpage](https://github.com/user-attachments/assets/10a6564f-54f6-462f-a7e9-ebf829595a59)
+
     - `/requests` and role-specific pages live in `src/pages/` and `src/layouts/`
 
-demo https://drive.google.com/file/d/1yvRAS3odhQb6M2v7RWwZKTQTbK6rOv8f/view?usp=sharing![workflows](https://github.com/user-attachments/assets/82b8f7b4-f856-4b4d-8399-8e25983a93c6)
-![details](https://github.com/user-attachments/assets/eab8c172-d570-4307-b6d7-cf4b41e778ad)
-![requests](https://github.com/user-attachments/assets/58f47411-9a00-4e74-bf5b-46b2e1738b83)
-![employerDashboard](https://github.com/user-attachments/assets/da14e151-c173-4fef-b00b-3134d84e0ab9)
-![notofilcation](https://github.com/user-attachments/assets/717c243d-ca4a-47cf-8c1e-61b9e578ad7c)
-![mangerdashboard](https://github.com/user-attachments/assets/4a5dad51-0f27-48e9-b6d7-0d95a7f1b6fb)
-![login](https://github.com/user-attachments/assets/0b47bd74-13a9-4c9f-98cc-4b56b7f2cf58)
-![landingpage](https://github.com/user-attachments/assets/1a0b1688-36c6-4c4c-b5c6-a1b8542ff65e)
+demo https://drive.google.com/file/d/1yvRAS3odhQb6M2v7RWwZKTQTbK6rOv8f/view?usp=sharing
+![empcreateworkflow](https://github.com/user-attachments/assets/cf635ef5-fc87-4181-840c-c9d70c765f06)
+![employerDashboard](https://github.com/user-attachments/assets/bda34cd3-903f-4ca0-ad55-289f8c3cfcd3)
+![notofilcation](https://github.com/user-attachments/assets/7b601231-9f1f-4e80-98ca-be4fba8934a6)
+![requests](https://github.com/user-attachments/assets/ab32e606-b1b2-4ff8-b6fe-96eeae18dcf7)
+![users](https://github.com/user-attachments/assets/1c271251-0213-45df-b616-18cce4ebd4aa)
+![mangerdashboard](https://github.com/user-attachments/assets/364d9e85-44fb-4477-87aa-25bf77f9c016)
+![login](https://github.com/user-attachments/assets/a9b46098-453e-47aa-8e78-ea089f9bf251)
+![Uploading landingpage.JPG…]()
+
 
